@@ -72,6 +72,9 @@ weather_w_week <- weather_w_week[!is.na(mean_temp), ]
 
 # Summarize with weekly temperature values.
 weather_weekly <- weather_w_week[, .(
+    TEMP_MIN_MIN   = round(min(min_temp,   na.rm = TRUE), 2L),
+    TEMP_MIN_MEAN  = round(mean(min_temp,  na.rm = TRUE), 2L),
+    TEMP_MEAN_MIN  = round(min(mean_temp,  na.rm = TRUE), 2L),
     TEMP_MEAN_MEAN = round(mean(mean_temp, na.rm = TRUE), 2L),
     TEMP_MEAN_MAX  = round(max(mean_temp,  na.rm = TRUE), 2L),
     TEMP_MAX_MEAN  = round(mean(max_temp,  na.rm = TRUE), 2L),
@@ -98,8 +101,12 @@ weather_death_weekly <- weather_death_weekly[!is.na(N_DEATH), ]
 
 
 table_final <- weather_death_weekly[, .(
-    YEAR, WEEK, START_DATE, MID_DATE, END_DATE, N_DEATH,
-    TEMP_MEAN_MEAN, TEMP_MEAN_MAX, TEMP_MAX_MEAN, TEMP_MAX_MAX
+    YEAR, WEEK,
+    START_DATE, MID_DATE, END_DATE,
+    N_DEATH,
+    TEMP_MIN_MIN, TEMP_MIN_MEAN,
+    TEMP_MEAN_MIN, TEMP_MEAN_MEAN, TEMP_MEAN_MAX,
+    TEMP_MAX_MEAN, TEMP_MAX_MAX
 )]
 
 
