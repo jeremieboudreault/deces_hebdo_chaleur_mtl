@@ -27,15 +27,18 @@ library(openxlsx)
 #        number can be related to a start, middle and end date.
 
 # Load CDC weeks (custom file made in Excel).
-cdc_weeks <- data.table::setDT(openxlsx::read.xlsx("data/cdc_weeks.xlsx"))
+cdc_weeks <- data.table::setDT(openxlsx::read.xlsx("data/cdc/cdc_weeks.xlsx"))
 
 # Fix dates.
 cdc_weeks[, START_DATE := as.Date(START_DATE, origin = "1899-12-30")]
-cdc_weeks[, MID_DATE := as.Date(MID_DATE, origin = "1899-12-30")]
-cdc_weeks[, END_DATE := as.Date(END_DATE, origin = "1899-12-30")]
+cdc_weeks[, MID_DATE   := as.Date(MID_DATE,   origin = "1899-12-30")]
+cdc_weeks[, END_DATE   := as.Date(END_DATE,   origin = "1899-12-30")]
 
 # Look at final file.
 cdc_weeks
+
+# Export final file to .csv.
+data.table::fwrite(cdc_weeks, "data/cdc/cdc_weeks.csv", sep = ";", dec = ",")
 
 
 # Weekly deaths by age groups --------------------------------------------------
@@ -111,7 +114,7 @@ jtheme::save_ggplot("plots/fig_1_deces_par_age.jpg", size = "rect")
 # Save dataset.
 data.table::fwrite(
     x    = wdeath_age,
-    file = "data/cleaned/wdeaths_age.csv",
+    file = "data/isq/wdeaths_age.csv",
     sep  = ";",
     dec  = ","
 )
@@ -186,7 +189,7 @@ jtheme::save_ggplot("plots/fig_2_deces_par_region.jpg", size = "rect")
 # Save dataset.
 data.table::fwrite(
     x    = wdeath_region,
-    file = "data/cleaned/wdeaths_region.csv",
+    file = "data/isq/wdeaths_region.csv",
     sep  = ";",
     dec  = ","
 )
@@ -266,7 +269,7 @@ jtheme::save_ggplot("plots/fig_3_deces_par_sexe.jpg", size = "rect")
 # Save dataset.
 data.table::fwrite(
     x    = wdeath_region,
-    file = "data/cleaned/wdeaths_sex.csv",
+    file = "data/isq/wdeaths_sex.csv",
     sep  = ";",
     dec  = ","
 )
