@@ -1,0 +1,118 @@
+# 01_tidy_isq_data.R
+
+
+# Step 01 : Tidy ISQ weekly death data into proper format.
+
+
+# Project : deces_isq_chaleur
+# Author  : Jeremie Boudreault
+# Email   : Jeremie.Boudreault [at] inrs [dot] ca
+# Depends : R (v4.1.2)
+# License : CC BY-NC-ND 4.0
+
+
+# Load relevant packages - -----------------------------------------------------
+
+
+library(data.table)
+library(ggplot2)
+library(jtheme)
+library(openxlsx)
+
+
+# Load CDC weeks ---------------------------------------------------------------
+
+
+# Note : These are weeks that are commonly used in epidemiology. Each week
+#        number can be related to a start, middle and end date.
+
+# Load CDC weeks (custom file made in Excel).
+cdc_weeks <- data.table::setDT(openxlsx::read.xlsx("data/cdc_weeks.xlsx"))
+
+# Fix dates.
+cdc_weeks[, START_DATE := as.Date(START_DATE, origin = "1899-12-30")]
+cdc_weeks[, MID_DATE := as.Date(MID_DATE, origin = "1899-12-30")]
+cdc_weeks[, END_DATE := as.Date(END_DATE, origin = "1899-12-30")]
+
+# Look at final file.
+cdc_weeks
+
+
+# Weekly deaths by age groups --------------------------------------------------
+
+
+# Downloaded here : https://statistique.quebec.ca/fr/document/
+#                   nombre-hebdomadaire-de-deces-au-quebec/tableau/
+#                   deces-par-semaine-selon-le-groupe-dage-quebec#tri_gp=950
+
+# Load deaths by age group.
+wdeath_age_raw <- data.table::setDT(openxlsx::read.xlsx(
+    xlsxFile = "data/isq/DecesSemaine_QC_GrAge.xlsx",
+    startRow = 7L
+))
+
+# Update columns names.
+colnames(wdeath_age_raw) <- c("YEAR", "FLAG", "AGE", 1:53)
+
+# Melt the table.
+wdeath_age <- data.table::melt.data.table(
+    data            = wdeath_age_raw,
+    id.vars         = c("YEAR", "FLAG", "AGE"),
+    variable.name   = "WEEK",
+    value.name      = "N_DEATH",
+    variable.factor = FALSE
+)
+
+# Look at the available values.
+table(wdeath_age$YEAR)
+table(wdeath_age$FLAG)
+table(wdeath_age$AGE)
+table(wdeath_age$WEEK)
+
+# Overwrite the age categories.
+wdeath_age[, AGE := gsub(" ans", "", AGE)]
+wdeath_age[, AGE := gsub(" et plus", "+", AGE)]
+
+# Convert <WEEK> to integer format.
+wdeath_age[, WEEK := as.integer(as.character(WEEK))]
+wdeath_age <- wdeath_age[!is.na(WEEK), ]
+
+# Merge with dates.
+wdeath_age <- data.table::merge.data.table(
+    x = wdeath_age,
+    y = cdc_weeks,
+    by = c("YEAR", "WEEK"),
+    all.x = TRUE
+)
+
+# Remove empty dates and deaths.
+wdeath_age <- wdeath_age[!is.na(MID_DATE), ]
+wdeath_age <- wdeath_age[!is.na(N_DEATH), ]
+
+# Reorder columns.
+wdeath_age <- wdeath_age[, .(YEAR, WEEK, START_DATE, MID_DATE, END_DATE,
+                             AGE, N_DEATH, FLAG)]
+
+# Plot the results prior to save.
+ggplot(
+    data    = wdeath_age,
+    mapping = aes(x = MID_DATE, y = N_DEATH)
+) +
+geom_line(aes(color = AGE)) +
+ggtitle("Décès hebdomadaires au Québec par groupe d'âge") +
+labs(y = "Décès hebdomadaires", x = "Date") +
+scale_x_date(expand = expansion(mult = c(0.01, 0.02))) +
+guides(colour = guide_legend(nrow = 1)) +
+jtheme(legend.title = FALSE)
+
+# Save plots.
+jtheme::save_ggplot("plots/fig_1_deces_par_age.jpg", size = "rect")
+
+# Save dataset.
+data.table::fwrite(
+    x    = wdeath_age,
+    file = "data/cleaned/wdeaths_age.csv",
+    sep  = ";",
+    dec  = ","
+)
+
