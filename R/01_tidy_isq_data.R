@@ -95,7 +95,7 @@ wdeath_age <- wdeath_age[, .(YEAR, WEEK, START_DATE, MID_DATE, END_DATE,
 
 # Plot the results prior to save.
 ggplot(
-    data    = wdeath_age,
+    data    = wdeath_age[AGE != "Total", ],
     mapping = aes(x = MID_DATE, y = N_DEATH)
 ) +
 geom_line(aes(color = AGE)) +
@@ -112,6 +112,81 @@ jtheme::save_ggplot("plots/fig_1_deces_par_age.jpg", size = "rect")
 data.table::fwrite(
     x    = wdeath_age,
     file = "data/cleaned/wdeaths_age.csv",
+    sep  = ";",
+    dec  = ","
+)
+
+
+# Weekly deaths by regions -----------------------------------------------------
+
+
+# Downloaded here : https://statistique.quebec.ca/fr/document/
+#                   nombre-hebdomadaire-de-deces-au-quebec/tableau/
+#                   deces-par-semaine-selon-le-regroupement-de-regions-quebec
+
+# Load deaths by region.
+wdeath_region_raw <- data.table::setDT(openxlsx::read.xlsx(
+    xlsxFile = "data/isq/DecesSemaine_QC_Region.xlsx",
+    startRow = 7L
+))
+
+# Update columns names.
+colnames(wdeath_region_raw) <- c("YEAR", "FLAG", "REGION", 1:53)
+
+# Melt the table.
+wdeath_region <- data.table::melt.data.table(
+    data            = wdeath_region_raw,
+    id.vars         = c("YEAR", "FLAG", "REGION"),
+    variable.name   = "WEEK",
+    value.name      = "N_DEATH",
+    variable.factor = FALSE
+)
+
+# Look at the available values.
+table(wdeath_region$YEAR)
+table(wdeath_region$FLAG)
+table(wdeath_region$REGION)
+table(wdeath_region$WEEK)
+
+# Convert <WEEK> to integer format.
+wdeath_region[, WEEK := as.integer(as.character(WEEK))]
+wdeath_region <- wdeath_region[!is.na(WEEK), ]
+
+# Merge with dates.
+wdeath_region <- data.table::merge.data.table(
+    x = wdeath_region,
+    y = cdc_weeks,
+    by = c("YEAR", "WEEK"),
+    all.x = TRUE
+)
+
+# Remove empty dates and deaths.
+wdeath_region <- wdeath_region[!is.na(MID_DATE), ]
+wdeath_region <- wdeath_region[!is.na(N_DEATH), ]
+
+# Reorder columns.
+wdeath_region <- wdeath_region[, .(YEAR, WEEK, START_DATE, MID_DATE, END_DATE,
+                             REGION, N_DEATH, FLAG)]
+
+# Plot the results prior to save.
+ggplot(
+    data    = wdeath_region[REGION != "Total"],
+    mapping = aes(x = MID_DATE, y = N_DEATH)
+) +
+geom_line(aes(color = REGION)) +
+ggtitle("Décès hebdomadaires au Québec par région") +
+labs(y = "Décès hebdomadaires", x = "Date") +
+scale_x_date(expand = expansion(mult = c(0.01, 0.02))) +
+guides(colour = guide_legend(nrow = 1)) +
+jtheme(legend.title = FALSE)
+
+# Save plots.
+jtheme::save_ggplot("plots/fig_2_deces_par_region.jpg", size = "rect")
+
+# Save dataset.
+data.table::fwrite(
+    x    = wdeath_region,
+    file = "data/cleaned/wdeaths_region.csv",
     sep  = ";",
     dec  = ","
 )
