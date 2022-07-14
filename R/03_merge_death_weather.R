@@ -15,10 +15,6 @@
 
 
 library(data.table)
-library(ggplot2)
-library(jtheme)
-library(sf)
-library(weathercan)
 
 
 # Imports ----------------------------------------------------------------------
@@ -76,10 +72,10 @@ weather_w_week <- weather_w_week[!is.na(mean_temp), ]
 
 # Summarize with weekly temperature values.
 weather_weekly <- weather_w_week[, .(
-    TEMP_MEAN_MEAN = mean(mean_temp, na.rm = TRUE),
-    TEMP_MEAN_MAX  = max(mean_temp,  na.rm = TRUE),
-    TEMP_MAX_MEAN  = mean(max_temp,  na.rm = TRUE),
-    TEMP_MAX_MAX   = max(max_temp,   na.rm = TRUE)
+    TEMP_MEAN_MEAN = round(mean(mean_temp, na.rm = TRUE), 2L),
+    TEMP_MEAN_MAX  = round(max(mean_temp,  na.rm = TRUE), 2L),
+    TEMP_MAX_MEAN  = round(mean(max_temp,  na.rm = TRUE), 2L),
+    TEMP_MAX_MAX   = round(max(max_temp,   na.rm = TRUE), 2L)
 ), by = c("YEAR", "WEEK")]
 
 
