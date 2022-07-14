@@ -259,7 +259,6 @@ geom_line(aes(color = SEX)) +
 ggtitle("Décès hebdomadaires au Québec par sexe") +
 labs(y = "Décès hebdomadaires", x = "Date") +
 scale_x_date(expand = expansion(mult = c(0.01, 0.02))) +
-scale_color_manual(values = c(jtheme::colors$blue, jtheme::colors$red)) +
 guides(colour = guide_legend(nrow = 1)) +
 jtheme(legend.title = FALSE)
 
