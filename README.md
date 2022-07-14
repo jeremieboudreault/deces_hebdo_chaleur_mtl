@@ -26,6 +26,7 @@ __Figure 4 : Températures quotidiennes à Montréal__
 
 ![](plots/fig_3_montreal_temp.jpg)
 
+Finalement, les données ont été ramenées ont pas de temps hebdomadaire en prenant la moyenne des températures quotidienne minimales, moyennes et maximales, en plus du minimum des températures quotidiennes minimales et du maximum des températures quotidiennes maximales. Ces données ont été fusionné avec les données de décès de l'ISQ pour la région de Montréal et Laval, sans distinction avec les groupes d'âge ou les sexes.
 
 Résultats
 --------------------------------------------------------------------------------
