@@ -20,6 +20,12 @@ __Figure 3 : Décès hebdomadaires par sexe__
 
 ![](plots/fig_3_deces_par_sexe.jpg)
 
+J'ai ensuite téléchargé les données des stations météorologiques d'Environnement et Changement climatique Canada (ECCC) situées à Montréal à l'aide du package `weathercan` au pas de temps quotidien pour la température minimale, maximale et minimale. À des fins de simplication, les données de toutes les stations ont été aggrégées spatialement.
+
+__Figure 4 : Températures quotidiennes à Montréal__
+
+![](plots/fig_3_montreal_temp.jpg)
+
 
 Résultats
 --------------------------------------------------------------------------------
