@@ -59,3 +59,59 @@ p1 <- ggplot(data, aes(y = N_DEATH, x = MID_DATE)) +
     jtheme(facets = TRUE)
 p1
 
+
+# Method 2) Continuous splines over the whole domain --------------------------
+
+
+# Create sequential unique identifiers for each date.
+data_wout_covid[, DATE_IDS := as.integer(as.factor(MID_DATE))]
+data[, DATE_IDS := as.integer(as.factor(MID_DATE))]
+
+# Fit a smoothing spline with ~3 degrees of freedom per year
+fit <- lm(N_DEATH ~ bs(DATE_IDS, df = 30), data = data_wout_covid, )
+data_wout_covid$TREND_CSPLINE <- predict(fit)
+
+# Need to retrieve the spline for the period 2020+.
+data_wout_covid[WEEK == 53, WEEK := 52]
+trend_spline <- data_wout_covid[, .(TREND_CSPLINE = mean(TREND_CSPLINE)), by = "WEEK"]
+trend_spline <- rbind(
+    trend_spline,
+    data.table(
+        WEEK               = 53,
+        TREND_CSPLINE = trend_spline[WEEK == 52, TREND_CSPLINE]
+    )
+)
+plot(trend_spline)
+
+# Merge splines prior to Covid and after.
+data_merged <- data.table::merge.data.table(
+    x     = data[!(MID_DATE %in% data_wout_covid$MID_DATE), ],
+    y     = trend_spline,
+    by    = c("WEEK"),
+    all.x = TRUE
+)
+
+# Merge the splines data.frame together.
+data_spline <- rbind(
+    data_merged[, .(DATE_IDS, TREND_CSPLINE, EXTRAPOLATED = "Extrapolated")],
+    data_wout_covid[, .(DATE_IDS, TREND_CSPLINE, EXTRAPOLATED = "")]
+)
+
+# Bring splines.
+data <- data.table::merge.data.table(
+    x     = data,
+    y     = data_spline,
+    by    = "DATE_IDS",
+    all.x = TRUE
+)
+
+# Plot resulting trend.
+p2 <- ggplot(data, aes(y = N_DEATH, x = MID_DATE)) +
+    geom_line() +
+    geom_line(aes(x = MID_DATE, y = TREND_CSPLINE, col = EXTRAPOLATED), show.legend = FALSE) +
+    ggtitle("b) Spline continue") +
+    labs(y = "", x = "") +
+    scale_color_manual(values = c(colors$blue, colors$red)) +
+    jtheme(facets = TRUE)
+p2
+
