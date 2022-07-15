@@ -217,9 +217,9 @@ p3 <- generate_plot(3L,
 # Summer over-mortality.
 p4 <- generate_plot(4L,
     year_end     = 2019,
-    death_metric = "OM_USPLINE",
     week_start   = 16L,
-    week_end     = 38L
+    week_end     = 38L,
+    death_metric = "OM_USPLINE"
 )
 
 # Plot.
@@ -234,4 +234,49 @@ ggpubr::ggarrange(
 jtheme::save_ggplot("plots/fig_8_2_relations_tmoymoy_precovid.jpg", "sqrbig")
 
 
+# Figure 3 : Non linear relation between max temperature and mortality ---------
+
+
+# Annual mortality.
+p1 <- generate_plot(1L,
+    year_end     = 2019,
+    death_metric = "N_DEATH",
+    temp_metric  = "TEMP_MAX_MEAN"
+)
+
+# Annual over-mortality.
+p2 <- generate_plot(2L,
+    year_end     = 2019,
+    death_metric = "OM_USPLINE",
+    temp_metric  = "TEMP_MAX_MEAN"
+)
+
+# Summer mortality.
+p3 <- generate_plot(3L,
+    year_end      = 2019,
+    week_start    = 16L,
+    week_end      = 38L,
+    death_metric = "N_DEATH",
+    temp_metric  = "TEMP_MAX_MEAN"
+)
+
+# Summer over-mortality.
+p4 <- generate_plot(4L,
+    year_end     = 2019,
+    week_start   = 16L,
+    week_end     = 38L,
+    death_metric = "OM_USPLINE",
+    temp_metric  = "TEMP_MAX_MEAN"
+)
+
+# Plot.
+ggpubr::ggarrange(
+    plotlist = list(p1, p2, p3, p4),
+    nrow     = 2L,
+    ncol     = 2L,
+    legend   = "none"
+)
+
+# Export.
+jtheme::save_ggplot("plots/fig_8_3_relations_tmaxmoy_precovid.jpg", "sqrbig")
 
