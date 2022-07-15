@@ -115,7 +115,7 @@ table_final <- weather_death_weekly[, .(
 
 data.table::fwrite(
     x    = table_final,
-    file = "data/weekly_death_weather_cleaned.csv",
+    file = "data/weekly_death_weather.csv",
     sep  = ";",
     dec  = ","
 )
