@@ -1,7 +1,7 @@
-# 0X_explore_correlation.R
+# 05_explore_weather_om_relations.R
 
 
-# Step 0X : Explore weekly data.
+# Step 05 : Explore relations between OM and weather variables.
 
 
 # Project : deces_isq_chaleur
