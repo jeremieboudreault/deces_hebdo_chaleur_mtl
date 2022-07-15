@@ -185,10 +185,10 @@ jtheme::save_ggplot("plots/fig_5_deces_mtl_trends.jpg", size= "rectbig")
 
 
 # Compute over mortality <OM>.
-data[, OM_MONTH   := N_DEATH - TREND_MONTH]
-data[, OM_CSPLINE := N_DEATH - TREND_CSPLINE]
-data[, OM_USPLINE := N_DEATH - TREND_USPLINE]
-data[, OM_POLY    := N_DEATH - TREND_POLY]
+data[, OM_MONTH   := round(N_DEATH - TREND_MONTH,   1L)]
+data[, OM_CSPLINE := round(N_DEATH - TREND_CSPLINE, 1L)]
+data[, OM_USPLINE := round(N_DEATH - TREND_USPLINE, 1L)]
+data[, OM_POLY    := round(N_DEATH - TREND_POLY,    1L)]
 
 # Plot over-mortality.
 ggplot(data, aes(x = MID_DATE)) +
@@ -208,5 +208,5 @@ jtheme::save_ggplot("plots/fig_6_surmortalite.jpg")
 # Export -----------------------------------------------------------------------
 
 
-data.table::fwrite(data, "data/weekly_death_weather_om.csv")
+data.table::fwrite(data, "data/weekly_death_weather_om.csv", sep = ";", dec = ",")
 
