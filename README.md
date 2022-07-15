@@ -16,11 +16,11 @@ J'ai téléchargé les données de décès hebdomadaires de `2010` à `2022` à 
 
 __Figure 1 : Décès hebdomadaires par âge__
 
-<img src = "plots/fig_1_deces_par_age.jpg" width = "500px" align = "center" />
+<p align="center"><img src = "plots/fig_1_deces_par_age.jpg" width = "500px" /></p>
 
 __Figure 2 : Décès hebdomadaires par région__
 
-![](plots/fig_2_deces_par_region.jpg)
+![](plots/fig_2_deces_par_region.jpg" width = "500px" align = "center" />
 
 __Figure 3 : Décès hebdomadaires par sexe__
 
