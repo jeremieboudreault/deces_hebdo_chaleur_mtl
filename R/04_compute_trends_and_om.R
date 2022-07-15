@@ -139,3 +139,30 @@ p3 <- ggplot(data, aes(y = N_DEATH, x = MID_DATE)) +
     jtheme(facets = TRUE)
 p3
 
+
+# Method 4) Polynomial over the weeks ------------------------------------------
+
+
+# Fit polynomial regression over the weeks.
+fit <- lm(N_DEATH ~ poly(WEEK, degree = 4), data = data_wout_covid)
+trend_poly <- data.frame(WEEK = 1:53)
+trend_poly$TREND_POLY <- predict(fit, newdata = newdata)
+plot(trend_poly)
+
+# Merge with data.
+data <- data.table::merge.data.table(
+    x     = data,
+    y     = trend_poly,
+    by    = "WEEK",
+    all.x = TRUE
+)
+
+# Plot resulting trend.
+p4 <- ggplot(data, aes(y = N_DEATH, x = MID_DATE)) +
+    geom_line() +
+    geom_line(aes(x = MID_DATE, y = TREND_POLY), col = colors$blue) +
+    ggtitle("d) Fonction polynomiale unique") +
+    labs(y = "", x = "Date") +
+    jtheme(facets = TRUE)
+p4
+
