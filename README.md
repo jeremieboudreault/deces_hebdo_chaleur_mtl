@@ -1,7 +1,9 @@
-Décès hebdomadaires au Québec en fonction de la chaleur observée 🌡
+Décès hebdomadaires à Montréal en fonction de la chaleur observée 🌇
 ================================================================================
 
-...
+À l'aide de données de décès hebdomadaires de l'Institut de la Statistique du Québec (ISQ), je tente de relier les décès en fonction de la chaleur observée durant les différentes semaines d'été à Montréal, Québec, Canada.
+
+Ce projet est un projet exploratoire qui fait partie de mon Ph. D. en santé environnementale et en science des données à l'Institut national de la recherche scientifique. Il chercher à démontrer l'utilisation de données ouvertes pour analyser les relations entre la santé et la chaleur extrême.
 
 Données
 --------------------------------------------------------------------------------
