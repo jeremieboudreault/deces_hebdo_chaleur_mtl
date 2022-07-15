@@ -115,3 +115,27 @@ p2 <- ggplot(data, aes(y = N_DEATH, x = MID_DATE)) +
     jtheme(facets = TRUE)
 p2
 
+
+# Method 3) Unique spline over the whole domain --------------------------------
+
+
+# Merge trend spline with data.
+trend_spline <- trend_spline[, .(WEEK, TREND_USPLINE = TREND_CSPLINE)]
+
+# Merge with data.
+data <- data.table::merge.data.table(
+    x     = data,
+    y     = trend_spline,
+    by    = "WEEK",
+    all.x = TRUE
+)
+
+# Plot resulting trend.
+p3 <- ggplot(data, aes(y = N_DEATH, x = MID_DATE)) +
+    geom_line() +
+    geom_line(aes(x = MID_DATE, y = TREND_USPLINE), col = colors$blue) +
+    ggtitle("c) Spline unique") +
+    labs(y = "Décès hebdomadaires", x = "Date") +
+    jtheme(facets = TRUE)
+p3
+
