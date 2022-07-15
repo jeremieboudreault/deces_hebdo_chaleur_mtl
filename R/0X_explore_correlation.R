@@ -1,7 +1,7 @@
-# 04_explore_weekly_data.R
+# 0X_explore_correlation.R
 
 
-# Step 04 : Explore weekly data.
+# Step 0X : Explore weekly data.
 
 
 # Project : deces_isq_chaleur
@@ -53,17 +53,20 @@ corrplot_full <- function(mcor, title = NA) {
 data <- data.table::fread("data/weekly_death_weather_cleaned.csv", dec = ",")
 
 
-# Correlation analysis between temperature data --------------------------------
+# Correlation analysis between temperature data and deaths ---------------------
 
 
 # Initial analysis with all months.
-mcor <- cor(data[, .(N_DEATH, TEMP_MIN_MIN, TEMP_MIN_MEAN, TEMP_MEAN_MIN,
-                     TEMP_MEAN_MEAN, TEMP_MEAN_MAX, TEMP_MAX_MEAN, TEMP_MAX_MAX)])
+mcor <- cor(data[, .(
+    N_DEATH, TEMP_MIN_MIN, TEMP_MIN_MEAN, TEMP_MEAN_MIN,
+    TEMP_MEAN_MEAN, TEMP_MEAN_MAX, TEMP_MAX_MEAN, TEMP_MAX_MAX
+)])
 corrplot_full(mcor, "Correlation matrix (all months)")
 
 # Analysis with summer months only.
-mcor_summer <- cor(data[WEEK > 16 & WEEK < 38,
-                        .(N_DEATH, TEMP_MIN_MIN, TEMP_MIN_MEAN, TEMP_MEAN_MIN,
-                         TEMP_MEAN_MEAN, TEMP_MEAN_MAX, TEMP_MAX_MEAN, TEMP_MAX_MAX)])
+mcor_summer <- cor(data[WEEK > 16 & WEEK < 38, .(
+    N_DEATH, TEMP_MIN_MIN, TEMP_MIN_MEAN, TEMP_MEAN_MIN,
+    TEMP_MEAN_MEAN, TEMP_MEAN_MAX, TEMP_MAX_MEAN, TEMP_MAX_MAX
+)])
 corrplot_full(mcor_summer, "Correlation matrix (may-september)")
 
