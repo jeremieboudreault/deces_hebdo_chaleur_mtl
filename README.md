@@ -1,7 +1,7 @@
 Décès hebdomadaires à Montréal en fonction de la chaleur observée 🌇
 ================================================================================
 
-+ Un projet de __Jeremie Boudreault__ dans le cadre de mon Ph. D. à l'[Institut national de la recherche scientifique](http://inrs.ca) (INRS)
++ Un projet réalisé dans le cadre de mon Ph. D. à l'[Institut national de la recherche scientifique](http://inrs.ca) (INRS)
 + Les scripts et les données sont rendus disponibles sous la license [Creative Common License ![](https://i.creativecommons.org/l/by-nc-nd/4.0/80x15.png)](http://creativecommons.org/licenses/by-nc-nd/4.0/)
 + Les question peuvent être addressées directement à l'adresse : __[Prénom].[Nom] [at] inrs.ca__
 
