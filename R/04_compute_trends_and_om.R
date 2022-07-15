@@ -166,3 +166,17 @@ p4 <- ggplot(data, aes(y = N_DEATH, x = MID_DATE)) +
     jtheme(facets = TRUE)
 p4
 
+
+# Create plot of all methods ---------------------------------------------------
+
+
+# Plot.
+ggpubr::ggarrange(
+    plotlist = list(p1, p2, p3, p4),
+    ncol     = 2L,
+    nrow     = 2L
+)
+
+# Save.
+jtheme::save_ggplot("plots/fig_5_deces_mtl_trends.jpg", size= "rectbig")
+
