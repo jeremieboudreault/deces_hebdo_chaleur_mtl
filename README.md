@@ -1,15 +1,13 @@
 Décès hebdomadaires à Montréal en fonction de la chaleur observée 🌇
 ================================================================================
 
-+ Un projet de __Jeremie Boudreault__ dans le cadre de mon Ph. D. à l'[Institut national de la recherche scientifique](http://inrs.ca)
++ Un projet de __Jeremie Boudreault__ dans le cadre de mon Ph. D. à l'[Institut national de la recherche scientifique](http://inrs.ca) (INRS)
 + Les scripts et les données sont rendus disponibles sous la license [Creative Common License ![](https://i.creativecommons.org/l/by-nc-nd/4.0/80x15.png)](http://creativecommons.org/licenses/by-nc-nd/4.0/)
 + Les question peuvent être addressées directement à l'adresse : __[Prénom].[Nom] [at] inrs.ca__
 
----
-
 À l'aide de données de décès hebdomadaires de l'Institut de la Statistique du Québec (ISQ), je tente de voir si des pics de décès peuvent être associés à des épisodes de chaleur extrême durant l'été à Montréal, Québec, Canada.
 
-Ce travail est un projet exploratoire qui fait partie de mon Ph. D. en santé environnementale et en science des données à l'Institut national de la recherche scientifique. Il chercher à démontrer l'utilisation de données ouvertes (décès et météo) pour analyser les relations entre la santé et l'environnement.
+Ce travail est un projet exploratoire qui fait partie de mon Ph. D. en santé environnementale et en science des données à l'INRS. Il chercher à démontrer la possibilité d'utiliser des données ouvertes (décès et météo) pour analyser les relations entre la santé et l'environnement.
 
 Données
 --------------------------------------------------------------------------------
