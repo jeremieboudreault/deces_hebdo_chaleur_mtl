@@ -85,6 +85,31 @@ corrplot_full(mcor_summer, "Matrice de corrélation (mai-septembre)")
 dev.off()
 
 
+# Overview of the overmortality 2010-2022 --------------------------------------
+
+
+# Extract top-30 week with over-mortality.
+data_om_top30 <- head(data[order(OM_MONTH, decreasing = TRUE), ], 30L)
+
+# Palette.
+pal <- rev(RColorBrewer::brewer.pal(9L, "RdBu")[c(1:3, 7:9)])
+
+# Plot.
+ggplot(data, aes(x = MID_DATE, y = OM_MONTH)) +
+    geom_line(aes(col = TEMP_MEAN_MEAN)) +
+    geom_point(data = data_om_top30, pch = 1, alpha = 0.8) +
+    geom_hline(yintercept = 0, lty = 3, alpha = 0.8) +
+    scale_color_gradientn(colors = pal, guide = guide_colourbar(
+        barwidth = 10, barheight = 1, ticks = FALSE)
+    ) +
+    ggtitle("30 surmortalités les plus importantes à Montréal") +
+    labs(y = "Surmortalité hebdomadaire", x = "Date", color = "Températures :") +
+    jtheme()
+
+# Save.
+jtheme::save_ggplot("plots/fig_8_surmortalites_montreal.jpg", "rect")
+
+
 # Generate a plot of the relation between temperature and mortality ------------
 
 
@@ -188,7 +213,7 @@ ggpubr::ggarrange(
 )
 
 # Export.
-jtheme::save_ggplot("plots/fig_8_1_relations_tmoymoy.jpg", "sqrbig")
+jtheme::save_ggplot("plots/fig_9_1_relations_tmoymoy.jpg", "sqrbig")
 
 
 # Figure 2 : Pre-covid relation between mean temperature and mortality ---------
@@ -231,7 +256,7 @@ ggpubr::ggarrange(
 )
 
 # Export.
-jtheme::save_ggplot("plots/fig_8_2_relations_tmoymoy_precovid.jpg", "sqrbig")
+jtheme::save_ggplot("plots/fig_9_2_relations_tmoymoy_precovid.jpg", "sqrbig")
 
 
 # Figure 3 : Non linear relation between max temperature and mortality ---------
@@ -278,5 +303,5 @@ ggpubr::ggarrange(
 )
 
 # Export.
-jtheme::save_ggplot("plots/fig_8_3_relations_tmaxmoy_precovid.jpg", "sqrbig")
+jtheme::save_ggplot("plots/fig_9_3_relations_tmaxmoy_precovid.jpg", "sqrbig")
 
