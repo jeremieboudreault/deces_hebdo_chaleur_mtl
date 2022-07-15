@@ -16,21 +16,21 @@ J'ai téléchargé les données de décès hebdomadaires de `2010` à `2022` à 
 
 __Figure 1 : Décès hebdomadaires par âge__
 
-<p align="center"><img src = "plots/fig_1_deces_par_age.jpg" width = "500px" /></p>
+<p align="center"><img src = "plots/fig_1_deces_par_age.jpg" width = "600px" /></p>
 
 __Figure 2 : Décès hebdomadaires par région__
 
-![](plots/fig_2_deces_par_region.jpg" width = "500px" align = "center" />
+<p align="center"><img src = "plots/fig_2_deces_par_region.jpg" width = "600px" /></p>
 
 __Figure 3 : Décès hebdomadaires par sexe__
 
-![](plots/fig_3_deces_par_sexe.jpg)
+<p align="center"><img src = "plots/fig_3_deces_par_sexe.jpg" width = "600px" /></p>
 
 J'ai ensuite téléchargé les données des stations météorologiques d'Environnement et Changement climatique Canada (ECCC) situées à Montréal à l'aide du package `weathercan` au pas de temps quotidien pour la température moyenne, maximale et minimale. À des fins de simplication, les données de toutes les stations ont été aggrégées spatialement.
 
 __Figure 4 : Températures quotidiennes à Montréal__
 
-![](plots/fig_4_montreal_temp.jpg)
+<p align="center"><img src = "plots/fig_4_montreal_temp.jpg" width = "600px" /></p>
 
 Finalement, les données météorologiques ont été ramenées au pas de temps hebdomadaire en prenant la moyenne des températures quotidienne minimales, moyennes et maximales, en plus du minimum et de la moyenne des températures quotidiennes minimales et du maximum et de la moyenne des températures quotidiennes maximales. Ces données ont été fusionnées avec les données de décès hebdomadaire de l'ISQ pour toute la région de Montréal et Laval, mais sans distinction entre les groupes d'âge ou les sexes (données non disponibles).
 
@@ -46,33 +46,33 @@ Plutôt que d'étudier les mortalités directement, j'ai convenu qu'il serait mi
 
 ### Figure 5 : Résultat des 4 méthodes pour extraire la surmortalité
 
-![](plots/fig_5_deces_mtl_trends.jpg)
+<p align="center"><img src = "plots/fig_5_deces_mtl_trends.jpg" width = "600px" /></p>
 
 Les surmortalités résultantes avec les 4 méthodes étaient très similaires.
 
 ### Figure 6 : Surmortalité avec les 4 méthodes
 
-![](plots/fig_6_surmortalite.jpg)
+<p align="center"><img src = "plots/fig_6_surmortalite.jpg" width = "600px" /></p>
 
 Par la suite, les données de températures ont été conjointement avec les mortalités et surmortalités. Un graphique intéressant était d'extraire les 30 plus grandes surmortalités en fonction de la température.
 
 ### Figure 7 : 30 surmortalités les plus importantes à Montréal
 
-![](plots/fig_8_surmortalites_montreal.jpg)
+<p align="center"><img src = "plots/fig_8_surmortalites_montreal.jpg" width = "600px" /></p>
 
 Finalement, des relations ont été établis entre la température et la mortalité/surmortalité pour Montréal.
 
 ### Figure 9.1 : Relation avec les températures moyennes (2010-2022)
 
-![](plots/fig_9_1_relations_tmoymoy.jpg)
+<p align="center"><img src = "plots/fig_9_1_relations_tmoymoy.jpg" width = "600px" /></p>
 
 ### Figure 9.2 : Relation avec les températures moyennes (2010-2019)
 
-![](plots/fig_9_2_relations_tmoymoy_precovid.jpg)
+<p align="center"><img src = "plots/fig_9_2_relations_tmoymoy_precovid.jpg" width = "600px" /></p>
 
 ### Figure 9.3 : Relation avec les températures maximales (2010-2019)
 
-![](plots/fig_9_3_relations_tmaxmoy_precovid.jpg)
+<p align="center"><img src = "plots/fig_9_3_relations_tmaxmoy_precovid.jpg" width = "600px" /></p>
 
 
 Conclusion
