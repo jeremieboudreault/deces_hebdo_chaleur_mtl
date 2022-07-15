@@ -79,7 +79,7 @@ Conclusion
 --------------------------------------------------------------------------------
 
 
-Les relations entre la mortalité/surmortalité à Montréal augmente de manière non linéaire à mesure les températures deviennent plus élevés. De plus, les pics de surmortalité permettent d'identifier les pics d'importances, notamment en 2010, 2018, en 2020 simultanément à la COVID-19 et en 2022 plus récemment.
+La mortalité/surmortalité à Montréal augmente de manière non linéaire à mesure les températures deviennent plus élevées. De plus, les pics de surmortalité permettent d'identifier les pics d'importance en lien avec des épisodes particulièrement chauds, notamment en 2010, en 2018, en 2020 (simultanément à un de COVID-19) et en mai 2022, plus récemment.
 
 
 Pistes futures
@@ -88,6 +88,7 @@ Pistes futures
 * Ajouter d'autres variables météorologiques (p. ex. humdité, vents)
 * Bâtir un modèle prédictif pour la relation décès-chaleur
 * Utiliser une meilleure agrégation spatiale des stations météorologiques de Montréal
+* Meilleur choix des stations à Montréal avec polygone des RSS
 * Raffiner la méthode utilisée pour extraire la surmortalité
 
 ___Enjoy !___ ✌🏻
