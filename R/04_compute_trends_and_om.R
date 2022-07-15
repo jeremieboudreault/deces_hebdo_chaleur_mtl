@@ -23,7 +23,7 @@ library(jtheme)
 # Imports ----------------------------------------------------------------------
 
 
-data <- data.table::fread("data/weekly_death_weather_cleaned.csv", dec = ",")
+data <- data.table::fread("data/weekly_death_weather.csv", dec = ",")
 
 
 # Method 1) Monthly trends -----------------------------------------------------
@@ -179,4 +179,34 @@ ggpubr::ggarrange(
 
 # Save.
 jtheme::save_ggplot("plots/fig_5_deces_mtl_trends.jpg", size= "rectbig")
+
+
+# Compute over mortality -------------------------------------------------------
+
+
+# Compute over mortality <OM>.
+data[, OM_MONTH   := N_DEATH - TREND_MONTH]
+data[, OM_CSPLINE := N_DEATH - TREND_CSPLINE]
+data[, OM_USPLINE := N_DEATH - TREND_USPLINE]
+data[, OM_POLY    := N_DEATH - TREND_POLY]
+
+# Plot over-mortality.
+ggplot(data, aes(x = MID_DATE)) +
+    geom_line(aes(y = OM_MONTH,   col = "Mensuel"),           alpha = 0.7) +
+    geom_line(aes(y = OM_CSPLINE, col = "Spline continue"),   alpha = 0.7) +
+    geom_line(aes(y = OM_USPLINE, col = "Spline unique"),     alpha = 0.7) +
+    geom_line(aes(y = OM_POLY,    col = "Polynomiale unique"), alpha = 0.7) +
+    geom_hline(yintercept = 0, lty = 3, alpha = 0.5) +
+    ggtitle("Surmortalité avec les 4 méthodes testées") +
+    labs(y = "Surmortalité hebdomadaire", x = "Date") +
+    jtheme(legend.title = FALSE)
+
+# Save plot of over-mortality.
+jtheme::save_ggplot("plots/fig_6_surmortalite.jpg")
+
+
+# Export -----------------------------------------------------------------------
+
+
+data.table::fwrite(data, "data/weekly_death_weather_om.csv")
 
