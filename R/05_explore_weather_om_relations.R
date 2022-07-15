@@ -191,4 +191,47 @@ ggpubr::ggarrange(
 jtheme::save_ggplot("plots/fig_8_1_relations_tmoymoy.jpg", "sqrbig")
 
 
+# Figure 2 : Pre-covid relation between mean temperature and mortality ---------
+
+
+# Annual mortality.
+p1 <- generate_plot(1L,
+    year_end     = 2019,
+    death_metric = "N_DEATH"
+)
+
+# Annual over-mortality.
+p2 <- generate_plot(2L,
+    year_end     = 2019,
+    death_metric = "OM_USPLINE"
+)
+
+# Summer mortality.
+p3 <- generate_plot(3L,
+    year_end      = 2019,
+    week_start    = 16L,
+    week_end      = 38L,
+    death_metric = "N_DEATH"
+)
+
+# Summer over-mortality.
+p4 <- generate_plot(4L,
+    year_end     = 2019,
+    death_metric = "OM_USPLINE",
+    week_start   = 16L,
+    week_end     = 38L
+)
+
+# Plot.
+ggpubr::ggarrange(
+    plotlist = list(p1, p2, p3, p4),
+    nrow     = 2L,
+    ncol     = 2L,
+    legend   = "none"
+)
+
+# Export.
+jtheme::save_ggplot("plots/fig_8_2_relations_tmoymoy_precovid.jpg", "sqrbig")
+
+
 
