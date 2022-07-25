@@ -6,12 +6,13 @@
 
 # Project : deces_isq_chaleur
 # Author  : Jeremie Boudreault
-# Email   : Jeremie.Boudreault [at] inrs [dot] ca
+# Email   : [Name].[Surname] [at] inrs [dot] ca
 # Depends : R (v4.1.2)
+# Imports : jtheme (https://github.com/jeremieboudreault/jtheme)
 # License : CC BY-NC-ND 4.0
 
 
-# Load relevant packages - -----------------------------------------------------
+# Packages ---------------------------------------------------------------------
 
 
 library(data.table)
@@ -24,7 +25,7 @@ library(openxlsx)
 
 
 # Note : These are weeks that are commonly used in epidemiology. Each week
-#        number can be related to a start, middle and end date.
+#        number can be related to a start, a middle and an end date.
 
 # Load CDC weeks (custom file made in Excel).
 cdc_weeks <- data.table::setDT(openxlsx::read.xlsx("data/cdc/cdc_weeks.xlsx"))
@@ -44,9 +45,9 @@ data.table::fwrite(cdc_weeks, "data/cdc/cdc_weeks.csv", sep = ";", dec = ",")
 # Weekly deaths by age groups --------------------------------------------------
 
 
-# Downloaded here : https://statistique.quebec.ca/fr/document/
-#                   nombre-hebdomadaire-de-deces-au-quebec/tableau/
-#                   deces-par-semaine-selon-le-groupe-dage-quebec#tri_gp=950
+# File downloaded here : https://statistique.quebec.ca/fr/document/
+#                        nombre-hebdomadaire-de-deces-au-quebec/tableau/
+#                        deces-par-semaine-selon-le-groupe-dage-quebec
 
 # Load deaths by age group.
 wdeath_age_raw <- data.table::setDT(openxlsx::read.xlsx(
@@ -67,14 +68,15 @@ wdeath_age <- data.table::melt.data.table(
 )
 
 # Look at the available values.
-table(wdeath_age$YEAR)
-table(wdeath_age$FLAG)
-table(wdeath_age$AGE)
-table(wdeath_age$WEEK)
+table(wdeath_age$YEAR, useNA = "always")
+table(wdeath_age$FLAG, useNA = "always") # d = definitive, p = preliminary
+table(wdeath_age$AGE,  useNA = "always")
+table(wdeath_age$WEEK, useNA = "always")
 
 # Overwrite the age categories.
 wdeath_age[, AGE := gsub(" ans", "", AGE)]
 wdeath_age[, AGE := gsub(" et plus", "+", AGE)]
+table(wdeath_age$AGE, useNA = "always")
 
 # Convert <WEEK> to integer format.
 wdeath_age[, WEEK := as.integer(as.character(WEEK))]
@@ -123,9 +125,9 @@ data.table::fwrite(
 # Weekly deaths by regions -----------------------------------------------------
 
 
-# Downloaded here : https://statistique.quebec.ca/fr/document/
-#                   nombre-hebdomadaire-de-deces-au-quebec/tableau/
-#                   deces-par-semaine-selon-le-regroupement-de-regions-quebec
+# File downloaded here : https://statistique.quebec.ca/fr/document/
+#                        nombre-hebdomadaire-de-deces-au-quebec/tableau/
+#                        deces-par-semaine-selon-le-regroupement-de-regions-quebec
 
 # Load deaths by region.
 wdeath_region_raw <- data.table::setDT(openxlsx::read.xlsx(
@@ -146,10 +148,10 @@ wdeath_region <- data.table::melt.data.table(
 )
 
 # Look at the available values.
-table(wdeath_region$YEAR)
-table(wdeath_region$FLAG)
-table(wdeath_region$REGION)
-table(wdeath_region$WEEK)
+table(wdeath_region$YEAR,   useNA = "always")
+table(wdeath_region$FLAG,   useNA = "always") # d = definitive, p = preliminary
+table(wdeath_region$REGION, useNA = "always")
+table(wdeath_region$WEEK,   useNA = "always")
 
 # Convert <WEEK> to integer format.
 wdeath_region[, WEEK := as.integer(as.character(WEEK))]
@@ -198,9 +200,9 @@ data.table::fwrite(
 # Weekly deaths by sex ---------------------------------------------------------
 
 
-# Downloaded here : https://statistique.quebec.ca/fr/document/
-#                   nombre-hebdomadaire-de-deces-au-quebec/tableau/
-#                   deces-par-semaine-selon-le-sexe-quebec
+# File downloaded here : https://statistique.quebec.ca/fr/document/
+#                        nombre-hebdomadaire-de-deces-au-quebec/tableau/
+#                        deces-par-semaine-selon-le-sexe-quebec
 
 # Load deaths by sex.
 wdeath_sex_raw <- data.table::setDT(openxlsx::read.xlsx(
@@ -221,14 +223,15 @@ wdeath_sex <- data.table::melt.data.table(
 )
 
 # Look at the available values.
-table(wdeath_sex$YEAR)
-table(wdeath_sex$FLAG)
-table(wdeath_sex$SEX)
-table(wdeath_sex$WEEK)
+table(wdeath_sex$YEAR, useNA = "always")
+table(wdeath_sex$FLAG, useNA = "always") # d = definitive, p = preliminary
+table(wdeath_sex$SEX,  useNA = "always")
+table(wdeath_sex$WEEK, useNA = "always")
 
 # Overwrite the sex categories.
 wdeath_sex[, SEX := gsub("Femmes", "F", SEX)]
 wdeath_sex[, SEX := gsub("Hommes", "H", SEX)]
+table(wdeath_sex$SEX,  useNA = "always")
 
 # Convert <WEEK> to integer format.
 wdeath_sex[, WEEK := as.integer(as.character(WEEK))]
@@ -267,7 +270,7 @@ jtheme::save_ggplot("plots/fig_3_deces_par_sexe.jpg", size = "rect")
 
 # Save dataset.
 data.table::fwrite(
-    x    = wdeath_region,
+    x    = wdeath_sex,
     file = "data/isq/wdeaths_sex.csv",
     sep  = ";",
     dec  = ","
