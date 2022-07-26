@@ -48,7 +48,7 @@ for (stn_id in stns_list$station_id) {
     if (nrow(weather_data_tmp) > 0) {
         data.table::fwrite(
             x     = weather_data_tmp,
-            file  = paste0("data/eccc/", stn_id, ".csv"),
+            file  = paste0("data/eccc/raw/", stn_id, ".csv"),
             sep   = ";",
             dec   = ","
         )
