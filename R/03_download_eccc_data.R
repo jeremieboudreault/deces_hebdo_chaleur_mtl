@@ -25,14 +25,15 @@ library(weathercan)
 
 
 # List of stations.
-stns_list <- qs::qread("data/eccc/stns_mtl_list.qs")
+stns_list <- data.table::fread("data/eccc/stns_mtl_list.csv", dec = ",")
 
 
 # Download data for the Monteal stations ---------------------------------------
 
 
-# Download from ECCC. *** This step takes time ***
-# Loop on all stations.
+# Note : This step is very long.
+
+# Download from ECCC by looping on all stations.
 for (stn_id in stns_list$station_id) {
 
     # Download data from ECCC.
