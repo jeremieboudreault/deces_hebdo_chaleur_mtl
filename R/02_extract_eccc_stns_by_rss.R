@@ -148,7 +148,7 @@ jtheme::save_ggplot("plots/fig_4_carte_stations.jpg", size = "rect")
 # Stations list.
 data.table::fwrite(
     x    = stns_mtl,
-    file = "data/eccc/stns_mtl_list.csv",
+    file = "data/eccc/stns_mtl.csv",
     dec  = ",",
     sep  = ";"
 )
