@@ -19,7 +19,6 @@ library(data.table)
 library(ggplot2)
 library(jtheme)
 library(sf)
-library(weathercan); weathercan::stations_dl()
 
 
 # Imports ----------------------------------------------------------------------
@@ -28,21 +27,32 @@ library(weathercan); weathercan::stations_dl()
 # RSS (Regions Socio-Sanitaires).
 rss <- sf::read_sf("data/rss/Territoires_RSS_2022.shp")
 
+# Download stations from ECCC.
+download.file(
+    url      = "https://drive.google.com/uc?export=download&id=1HDRnj41YBWpMioLPwAFiLlK4SK8NV72C",
+    destfile = "data/eccc/stns.csv"
+)
+
+# Load stations.
+stns <- data.table::fread("data/eccc/stns.csv")
+
+# Update some names.
+data.table::setnames(stns,
+    old = c("Latitude (Decimal Degrees)", "Longitude (Decimal Degrees)"),
+    new = c("lat", "lon")
+)
+
 
 # ECCC weather stations --------------------------------------------------------
 
 
-# Load list of stations
-stns <- data.table::data.table(weathercan::stations())
-
 # Keep only stations in QC, with hourly data and valid long/lat.
 stns <- stns[
-    prov     == "QC"   &
-    interval == "hour" &
-    !is.na(lat)        &
-    !is.na(lon)        &
-    !is.na(start)      &
-    !is.na(end)
+    Province  == "QUEBEC"         &
+    !is.na(lat)                   &
+    !is.na(lon)                   &
+    !is.na(`HLY First Year`)      &
+    !is.na(`HLY Last Year`)
 ]
 
 
@@ -65,7 +75,7 @@ leaflet::addCircleMarkers(
     opacity     = 0.8,
     fillColor   = "orange",
     fillOpacity = 1L,
-    label       = ~ station_name,
+    label       = ~ Name,
     clusterOptions = leaflet::markerClusterOptions()
 )
 
