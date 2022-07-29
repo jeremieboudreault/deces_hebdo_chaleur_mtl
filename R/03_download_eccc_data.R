@@ -78,6 +78,9 @@ for (stn_i in seq_len(nrow(stns_list))) {
     # End of loop for year.
     }
 
+    # Sleep time to avoid breaking connection by asking to much data.
+    Sys.sleep(30L)
+
 # End of loop for stations
 }
 
