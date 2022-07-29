@@ -111,7 +111,7 @@ guides(colour = guide_legend(nrow = 1)) +
 jtheme(legend.title = FALSE)
 
 # Save plots.
-jtheme::save_ggplot("plots/fig_1_deces_par_age.jpg", size = "rect")
+jtheme::save_ggplot("plots/fig_1_1_deces_par_age.jpg", size = "rect")
 
 # Save dataset.
 data.table::fwrite(
@@ -186,7 +186,7 @@ guides(colour = guide_legend(nrow = 1)) +
 jtheme(legend.title = FALSE)
 
 # Save plots.
-jtheme::save_ggplot("plots/fig_2_deces_par_region.jpg", size = "rect")
+jtheme::save_ggplot("plots/fig_1_2_deces_par_region.jpg", size = "rect")
 
 # Save dataset.
 data.table::fwrite(
@@ -266,7 +266,7 @@ guides(colour = guide_legend(nrow = 1)) +
 jtheme(legend.title = FALSE)
 
 # Save plots.
-jtheme::save_ggplot("plots/fig_3_deces_par_sexe.jpg", size = "rect")
+jtheme::save_ggplot("plots/fig_1_3_deces_par_sexe.jpg", size = "rect")
 
 # Save dataset.
 data.table::fwrite(
