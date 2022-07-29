@@ -6,7 +6,7 @@
 
 # Project : deces_isq_chaleur
 # Author  : Jeremie Boudreault
-# Email   : [Name].[Surname] [at] inrs [dot] ca
+# Email   : Prenom.Nom@inrs.ca
 # Depends : R (v4.1.2)
 # Imports : jtheme (https://github.com/jeremieboudreault/jtheme)
 # License : CC BY-NC-ND 4.0
