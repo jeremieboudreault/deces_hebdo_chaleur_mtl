@@ -49,7 +49,7 @@ Les jeux de données horaires ont été préférés à ceux quotidiens car ils c
 
 <p align="center"><img src = "plots/fig_3_1_montreal_temp.jpg" width = "600px" /></p>
 
-**Figure 3.2 : Humidex quotidiennes à Montréal et Laval**
+**Figure 3.2 : Valeurs quotidiennes d'Humidex à Montréal et Laval**
 
 <p align="center"><img src = "plots/fig_3_2_montreal_hmdx.jpg" width = "600px" /></p>
 
@@ -65,35 +65,35 @@ Plutôt que d'étudier les mortalités directement, j'ai convenu qu'il serait mi
 + Spline unique en fonction de la semaine
 + Fonction polynomiale de degrée 3 en fonction de la semaine
 
-**Figure 6 : Résultat des 4 méthodes pour extraire la surmortalité**
+**Figure 4 : Résultat des 4 méthodes pour extraire la surmortalité**
 
-<p align="center"><img src = "plots/fig_6_deces_mtl_trends.jpg" width = "600px" /></p>
+<p align="center"><img src = "plots/fig_4_deces_mtl_trends.jpg" width = "600px" /></p>
 
 Les surmortalités résultantes avec les 4 méthodes étaient très similaires.
 
-**Figure 7 : Surmortalité avec les 4 méthodes**
+**Figure 5 : Surmortalité avec les 4 méthodes**
 
-<p align="center"><img src = "plots/fig_7_surmortalite.jpg" width = "600px" /></p>
+<p align="center"><img src = "plots/fig_5_surmortalite.jpg" width = "600px" /></p>
 
 Par la suite, les données de températures ont été conjointement avec les mortalités et surmortalités. Un graphique intéressant était d'extraire les 30 plus grandes surmortalités en fonction de la température.
 
-**Figure 8 : 30 surmortalités les plus importantes à Montréal**
+**Figure 6 : 30 surmortalités les plus importantes à Montréal**
 
-<p align="center"><img src = "plots/fig_8_surmortalites_montreal.jpg" width = "600px" /></p>
+<p align="center"><img src = "plots/fig_6_surmortalites_montreal.jpg" width = "600px" /></p>
 
 Finalement, des relations ont été établis entre la température et la mortalité/surmortalité pour Montréal.
 
-**Figure 9.1 : Relation avec les températures moyennes (2010-2022)**
+**Figure 7.1 : Relation avec les températures moyennes (2010-2022)**
 
-<p align="center"><img src = "plots/fig_9_1_relations_tmoymoy.jpg" width = "600px" /></p>
+<p align="center"><img src = "plots/fig_7_1_relations_tmoymoy.jpg" width = "600px" /></p>
 
-### Figure 9.2 : Relation avec les températures moyennes (2010-2019)
+**Figure 7.2 : Relation avec les températures moyennes (2010-2019)**
 
-<p align="center"><img src = "plots/fig_9_2_relations_tmoymoy_precovid.jpg" width = "600px" /></p>
+<p align="center"><img src = "plots/fig_7_2_relations_tmoymoy_precovid.jpg" width = "600px" /></p>
 
-### Figure 9.3 : Relation avec les températures maximales (2010-2019)
+**Figure 9.3 : Relation avec les températures maximales (2010-2019)**
 
-<p align="center"><img src = "plots/fig_9_3_relations_tmaxmoy_precovid.jpg" width = "600px" /></p>
+<p align="center"><img src = "plots/fig_7_3_relations_tmaxmoy_precovid.jpg" width = "600px" /></p>
 
 
 Conclusion
@@ -109,4 +109,4 @@ Pistes futures
 + Bâtir un modèle prédictif pour la relation décès-chaleur avec d'autres variables météos
 + Raffiner la méthode utilisée pour extraire la surmortalité
 
-***Enjoy !*** ✌🏻
+**Enjoy !** ✌🏻
