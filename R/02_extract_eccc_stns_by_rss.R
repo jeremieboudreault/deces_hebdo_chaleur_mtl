@@ -139,7 +139,7 @@ scale_color_manual(values = ul(colors[c("red", "blue")])) +
 jtheme(show.grid = TRUE, facets = TRUE)
 
 # Export plots.
-jtheme::save_ggplot("plots/fig_4_carte_stations.jpg", size = "rect")
+jtheme::save_ggplot("plots/fig_2_carte_stations.jpg", size = "rect")
 
 
 # Exports ----------------------------------------------------------------------
