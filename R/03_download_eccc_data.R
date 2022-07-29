@@ -24,10 +24,10 @@ library(jtheme)
 
 
 # List of stations.
-stns_list <- data.table::fread("data/eccc/stns_mtl_list.csv", dec = ",")
+stns_list <- data.table::fread("data/eccc/stns_mtl.csv", dec = ",")
 
 # Keep stations that have data after 1979.
-stns_list <- stns_list[end >= 1979L, ]
+stns_list <- stns_list[`HLY Last Year` >= 1979L, ]
 
 
 # Download data for the stations in Monteal/Laval ------------------------------
@@ -37,11 +37,11 @@ stns_list <- stns_list[end >= 1979L, ]
 for (stn_i in seq_len(nrow(stns_list))) {
 
     # Extract station id
-    stn_id <- stns_list[stn_i, station_id]
+    stn_id <- stns_list[stn_i, `Station ID`]
 
     # Extract start and end year.
-    start <- max(stns_list[stn_i, start], 1979L)
-    end   <- stns_list[stn_i, end]
+    start <- max(stns_list[stn_i, `HLY First Year`], 1979L)
+    end   <- stns_list[stn_i, `HLY Last Year`]
 
     # Loop on years.
     for (year in start:end) {
@@ -72,12 +72,12 @@ for (stn_i in seq_len(nrow(stns_list))) {
                 quiet    = TRUE
             )
 
-            # End of loop for month.
+        # End of loop for month.
         }
 
-        # End of loop for year.
+    # End of loop for year.
     }
 
-    # End of loop for season.
+# End of loop for stations
 }
 
