@@ -64,3 +64,43 @@ t(data.frame(lapply(eccc_raw, function(w) round(mean(is.na(w)), 2L))))
 # First top 10 rows.
 head(eccc_raw)
 
+
+# Processing hourly to daily values --------------------------------------------
+
+
+# Extract <Date> from <Date/Time (LST)>.
+eccc_raw[, Date := as.Date(substr(`Date/Time (LST)`, 1L, 10L))]
+
+# Compute daily values by station, return NA when >= 1 value is missing per day.
+eccc_daily <- eccc_raw[, .(
+    T_MIN      = min(`Temp (°C)`),
+    T_MEAN     = mean(`Temp (°C)`),
+    T_MAX      = max(`Temp (°C)`),
+    HMDX_MIN   = min(`Hmdx`),
+    HMDX_MEAN  = mean(`Hmdx`),
+    HMDX_MAX   = max(`Hmdx`),
+    TDEW_MEAN  = mean(`Dew Point Temp (°C)`),
+    WDCHL_MEAN = mean(`Wind Chill`),
+    RELH_MEAN  = mean(`Rel Hum (%)`),
+    PRES_MEAN  = mean(`Stn Press (kPa)`),
+    WDSPD_MEAN = mean(`Wind Spd (km/h)`),
+    PRCIP_SUM  = sum(`Precip. Amount (mm)`),
+    VISB_MEAN  = mean(`Visibility (km)`)
+), by = c("Station Name", "Climate ID", "Date", "Year", "Month", "Day")]
+
+# Compute spatial aggregation of daily values for Montreal/Laval.
+eccc_mtl_daily <- eccc_daily[, .(
+    T_MIN      = mean(T_MIN,      na.rm = TRUE),
+    T_MEAN     = mean(T_MEAN,     na.rm = TRUE),
+    T_MAX      = mean(T_MAX,      na.rm = TRUE),
+    HMDX_MIN   = mean(HMDX_MIN,   na.rm = TRUE),
+    HMDX_MEAN  = mean(HMDX_MEAN,  na.rm = TRUE),
+    HMDX_MAX   = mean(HMDX_MAX,   na.rm = TRUE),
+    TDEW_MEAN  = mean(TDEW_MEAN,  na.rm = TRUE),
+    WDCHL_MEAN = mean(WDCHL_MEAN, na.rm = TRUE),
+    RELH_MEAN  = mean(RELH_MEAN,  na.rm = TRUE),
+    PRES_MEAN  = mean(PRES_MEAN,  na.rm = TRUE),
+    WDSPD_MEAN = mean(WDSPD_MEAN, na.rm = TRUE),
+    PRCIP_SUM  = mean(PRCIP_SUM,   na.rm = TRUE),
+    VISB_MEAN  = mean(VISB_MEAN,  na.rm = TRUE)
+), by = c("Date", "Year", "Month", "Day")]
