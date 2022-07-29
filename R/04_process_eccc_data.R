@@ -104,3 +104,22 @@ eccc_mtl_daily <- eccc_daily[, .(
     PRCIP_SUM  = mean(PRCIP_SUM,   na.rm = TRUE),
     VISB_MEAN  = mean(VISB_MEAN,  na.rm = TRUE)
 ), by = c("Date", "Year", "Month", "Day")]
+
+# Update name of the resulting dataset.
+data.table::setnames(eccc_mtl_daily,
+    old = c("Date", "Year", "Month", "Day"),
+    new = c("DATE", "YEAR", "MONTH", "DAY")
+)
+
+# Reorder data using <DATE>.
+eccc_mtl_daily <- eccc_mtl_daily[order(DATE), ]
+
+# Remove data after July 27 (Date of download from ECCC).
+eccc_mtl_daily <- eccc_mtl_daily[DATE <= "2022/07/27", ]
+
+# Final percentage of missing.
+t(data.frame(lapply(eccc_mtl_daily, function(w) round(mean(is.na(w)), 2L))))
+
+
+
+
