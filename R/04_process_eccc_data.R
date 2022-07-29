@@ -121,5 +121,34 @@ eccc_mtl_daily <- eccc_mtl_daily[DATE <= "2022/07/27", ]
 t(data.frame(lapply(eccc_mtl_daily, function(w) round(mean(is.na(w)), 2L))))
 
 
+# Plots ------------------------------------------------------------------------
 
+
+# Temperature metrics.
+ggplot(eccc_mtl_daily[DATE > "2010-01-01", ], mapping = aes(x = DATE)) +
+    geom_line(aes(y = T_MAX,  col = "Max"), lwd = 0.3) +
+    geom_line(aes(y = T_MIN,  col = "Min"), lwd = 0.3) +
+    geom_line(aes(y = T_MEAN, col = "Moy"), lwd = 0.3) +
+    scale_x_date(expand = expansion(mult = c(0.01, 0.02))) +
+    scale_color_manual(values = c(colors$red, colors$blue, "black")) +
+    ggtitle("Températures enregistrées à Montréal et Laval") +
+    labs(x = "Date", y = "Température (ºC)") +
+    jtheme(legend.title = FALSE)
+
+# Save plot.
+jtheme::save_ggplot("plots/fig_5_1_montreal_temp.jpg", size = "rect")
+
+# Humidex values.
+ggplot(eccc_mtl_daily[DATE > "2010-01-01", ], mapping = aes(x = DATE)) +
+    geom_point(aes(y = HMDX_MIN,  col = "Min"), lwd = 0.3) +
+    geom_point(aes(y = HMDX_MEAN, col = "Moy"), lwd = 0.3) +
+    geom_point(aes(y = HMDX_MAX,  col = "Max"), lwd = 0.3) +
+    scale_x_date(expand = expansion(mult = c(0.01, 0.02))) +
+    scale_color_manual(values = c(colors$red, colors$blue, "black")) +
+    ggtitle("Valeurs d'Humidex enregistrées à Montréal et Laval") +
+    labs(x = "Date", y = "Humidex") +
+    jtheme(legend.title = FALSE)
+
+# Save plot.
+jtheme::save_ggplot("plots/fig_5_2_montreal_hmdx.jpg", size = "rect")
 
