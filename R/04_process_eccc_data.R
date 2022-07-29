@@ -20,12 +20,11 @@ library(ggplot2)
 library(jtheme)
 
 
-
-# Load all files ---------------------------------------------------------------
+# Imports ----------------------------------------------------------------------
 
 
 # Path to files.
-files_path <- "data/eccc/raw"
+files_path <- "data/eccc/raw/"
 
 # List files.
 files <- list.files(files_path)
