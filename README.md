@@ -3,7 +3,7 @@ Décès hebdomadaires à Montréal en fonction de la chaleur observée 🌇
 
 + Un projet réalisé dans le cadre de mon Ph. D. à l'[Institut national de la recherche scientifique](http://inrs.ca) (INRS)
 + Les scripts et les données sont rendus disponibles sous la license [Creative Common License ![](https://i.creativecommons.org/l/by-nc-nd/4.0/80x15.png)](http://creativecommons.org/licenses/by-nc-nd/4.0/)
-+ Les question peuvent être addressées directement à l'adresse : Prénom.Nom@inrs.ca
++ Les question peuvent être addressées directement à l'adresse : [Prénom.Nom@inrs.ca](mailto:Prénom.Nom@inrs.ca)
 
 À l'aide de données de décès hebdomadaires de l'Institut de la Statistique du Québec (ISQ), je tente de voir si des pics de décès peuvent être associés à des épisodes de chaleur extrême durant l'été à Montréal et Laval, Québec, Canada.
 
@@ -107,8 +107,7 @@ La mortalité/surmortalité à Montréal augmente de manière non linéaire à m
 Pistes futures
 --------------------------------------------------------------------------------
 
-+ Bâtir un modèle prédictif pour la relation décès-chaleur
-+ Utiliser une meilleure agrégation spatiale des stations météorologiques de Montréal
++ Bâtir un modèle prédictif pour la relation décès-chaleur avec d'autres variables météos
 + Raffiner la méthode utilisée pour extraire la surmortalité
 
 ***Enjoy !*** ✌🏻
