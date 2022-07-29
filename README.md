@@ -14,23 +14,23 @@ Données
 
 J'ai téléchargé les données de décès hebdomadaires de `2010` à `2022` à partir du site web de l'[Institut de la Statistique du Québec](https://statistique.quebec.ca/fr/document/nombre-hebdomadaire-de-deces-au-quebec) (ISQ). 
 
-**Figure 1 : Décès hebdomadaires par âge**
+**Figure 1.1 : Décès hebdomadaires par âge**
 
-<p align="center"><img src = "plots/fig_1_deces_par_age.jpg" width = "600px" /></p>
+<p align="center"><img src = "plots/fig_1_1_deces_par_age.jpg" width = "600px" /></p>
 
-**Figure 2 : Décès hebdomadaires par région**
+**Figure 1.2 : Décès hebdomadaires par région**
 
-<p align="center"><img src = "plots/fig_2_deces_par_region.jpg" width = "600px" /></p>
+<p align="center"><img src = "plots/fig_1_2_deces_par_region.jpg" width = "600px" /></p>
 
-**Figure 3 : Décès hebdomadaires par sexe**
+**Figure 1.3 : Décès hebdomadaires par sexe**
 
-<p align="center"><img src = "plots/fig_3_deces_par_sexe.jpg" width = "600px" /></p>
+<p align="center"><img src = "plots/fig_1_3_deces_par_sexe.jpg" width = "600px" /></p>
 
 J'ai ensuite téléchargé les données des stations météorologiques d'Environnement et Changement climatique Canada (ECCC) situées à Montréal et Laval à l'aide de l'API d'ECCC. Je n'ai retenu que les stations qui avaient des données au pas de temps horaire dans ces deux régions.
 
-**Figure 4 : Cartes des stations de ECCC à Montréal et Laval**
+**Figure 2 : Cartes des stations de ECCC à Montréal et Laval**
 
-<p align="center"><img src = "plots/fig_4_carte_stations.jpg" width = "600px" /></p>
+<p align="center"><img src = "plots/fig_2_carte_stations.jpg" width = "600px" /></p>
 
 Les jeux de données horaires ont été préférés à ceux quotidiens car ils contiennent plus de variables que les aggrégations quotidiennes (p. ex. Humidex, pression, humidité relative, etc.).  Des métriques quotidiennes de plusieurs variables météorologiques ont été calculées à partir des observations horaires : 
 
@@ -45,13 +45,13 @@ Les jeux de données horaires ont été préférés à ceux quotidiens car ils c
 
 À des fins de simplication, les données de toutes les stations ont été aggrégées spatialement.
 
-**Figure 5.1 : Températures quotidiennes à Montréal et Laval**
+**Figure 3.1 : Températures quotidiennes à Montréal et Laval**
 
-<p align="center"><img src = "plots/fig_5_1_montreal_temp.jpg" width = "600px" /></p>
+<p align="center"><img src = "plots/fig_3_1_montreal_temp.jpg" width = "600px" /></p>
 
-**Figure 5.2 : Humidex quotidiennes à Montréal et Laval**
+**Figure 3.2 : Humidex quotidiennes à Montréal et Laval**
 
-<p align="center"><img src = "plots/fig_5_2_montreal_hmdx.jpg" width = "600px" /></p>
+<p align="center"><img src = "plots/fig_3_2_montreal_hmdx.jpg" width = "600px" /></p>
 
 Finalement, les données météorologiques ont été ramenées au pas de temps hebdomadaire en prenant la moyenne des valeurs observées durant la semaine. Ces données ont été fusionnées avec les données de décès totaux hebdomadaire de l'ISQ pour la région de Montréal et Laval.
 
