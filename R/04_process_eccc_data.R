@@ -45,3 +45,22 @@ eccc_raw <- data.table::rbindlist(
     use.names = TRUE
 )
 
+
+# Basic exploration ------------------------------------------------------------
+
+
+# Number of row.
+nrow(eccc_raw)
+
+# Names of columns.
+colnames(eccc_raw)
+
+# Class of columns.
+data.frame(sapply(eccc_raw, class))
+
+# Percentage of missing per columns.
+t(data.frame(lapply(eccc_raw, function(w) round(mean(is.na(w)), 2L))))
+
+# First top 10 rows.
+head(eccc_raw)
+
