@@ -152,3 +152,10 @@ ggplot(eccc_mtl_daily[DATE > "2010-01-01", ], mapping = aes(x = DATE)) +
 # Save plot.
 jtheme::save_ggplot("plots/fig_5_2_montreal_hmdx.jpg", size = "rect")
 
+
+# Exports ----------------------------------------------------------------------
+
+
+# Spatially aggregated daily data for Montreal/Laval.
+qs::qsave(eccc_mtl_daily, "data/eccc/mtl_data_daily_agg.qs")
+
