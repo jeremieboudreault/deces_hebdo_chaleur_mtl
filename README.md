@@ -26,14 +26,13 @@ J'ai téléchargé les données de décès hebdomadaires de `2010` à `2022` à 
 
 <p align="center"><img src = "plots/fig_3_deces_par_sexe.jpg" width = "600px" /></p>
 
-J'ai ensuite téléchargé les données des stations météorologiques d'Environnement et Changement climatique Canada (ECCC) situées à Montréal et Laval à l'aide de l'API d'ECCC qui avaient des données au pas de temps horaire. Ces jeux de données contiennent plus de variables que pour les aggrégations quotidiennes (p. ex. Humidex, pression, humidité relative, etc.). 
+J'ai ensuite téléchargé les données des stations météorologiques d'Environnement et Changement climatique Canada (ECCC) situées à Montréal et Laval à l'aide de l'API d'ECCC. Je n'ai retenu que les stations qui avaient des données au pas de temps horaire dans ces deux régions.
 
-**Figure 4 : Cartes des stations d'ECCC à Montréal et Laval**
+**Figure 4 : Cartes des stations de ECCC à Montréal et Laval**
 
 <p align="center"><img src = "plots/fig_4_carte_stations.jpg" width = "600px" /></p>
 
-
-Des métriques quotidiennes de plusieurs variables météorologiques ont été calculées à partir des observations horaires : 
+Les jeux de données horaires ont été préférés à ceux quotidiens car ils contiennent plus de variables que les aggrégations quotidiennes (p. ex. Humidex, pression, humidité relative, etc.).  Des métriques quotidiennes de plusieurs variables météorologiques ont été calculées à partir des observations horaires : 
 
 + Température (minimale, moyenne et maximale)
 + Température moyenne au point de rosée
