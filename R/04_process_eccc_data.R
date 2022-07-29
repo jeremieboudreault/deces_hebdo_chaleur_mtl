@@ -136,7 +136,7 @@ ggplot(eccc_mtl_daily[DATE > "2010-01-01", ], mapping = aes(x = DATE)) +
     jtheme(legend.title = FALSE)
 
 # Save plot.
-jtheme::save_ggplot("plots/fig_5_1_montreal_temp.jpg", size = "rect")
+jtheme::save_ggplot("plots/fig_3_1_montreal_temp.jpg", size = "rect")
 
 # Humidex values.
 ggplot(eccc_mtl_daily[DATE > "2010-01-01", ], mapping = aes(x = DATE)) +
@@ -150,7 +150,7 @@ ggplot(eccc_mtl_daily[DATE > "2010-01-01", ], mapping = aes(x = DATE)) +
     jtheme(legend.title = FALSE)
 
 # Save plot.
-jtheme::save_ggplot("plots/fig_5_2_montreal_hmdx.jpg", size = "rect")
+jtheme::save_ggplot("plots/fig_3_2_montreal_hmdx.jpg", size = "rect")
 
 
 # Exports ----------------------------------------------------------------------
