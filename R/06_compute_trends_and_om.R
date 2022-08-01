@@ -1,13 +1,14 @@
-# 04_compute_trends_and_om.R
+# 06_compute_trends_and_om.R
 
 
-# Step 04 : Compute trends in data and over-mortality (OM).
+# Step 06 : Compute trends in data and over-mortality (OM).
 
 
-# Project : deces_isq_chaleur
+# Project : deces_hebdo_chaleur_mtl
 # Author  : Jeremie Boudreault
-# Email   : Jeremie.Boudreault [at] inrs [dot] ca
-# Depends : R (v4.1.2)
+# Email   : Prenom.Nom@inrs.ca
+# Depends : R (v4.2.1)
+# Imports : jtheme (https://github.com/jeremieboudreault/jtheme)
 # License : CC BY-NC-ND 4.0
 
 
