@@ -4,10 +4,11 @@
 # Step 07 : Explore relations between OM and weather variables.
 
 
-# Project : deces_isq_chaleur
+# Project : deces_hebdo_chaleur_mtl
 # Author  : Jeremie Boudreault
-# Email   : Jeremie.Boudreault [at] inrs [dot] ca
-# Depends : R (v4.1.2)
+# Email   : Prenom.Nom@inrs.ca
+# Depends : R (v4.2.1)
+# Imports : jtheme (https://github.com/jeremieboudreault/jtheme)
 # License : CC BY-NC-ND 4.0
 
 
