@@ -4,7 +4,7 @@
 # Step 02 : Extract a list of stations from ECCC in a given RSS.
 
 
-# Project : deces_isq_chaleur
+# Project : deces_hebdo_chaleur_mtl
 # Author  : Jeremie Boudreault
 # Email   : Prenom.Nom@inrs.ca
 # Depends : R (v4.2.1)

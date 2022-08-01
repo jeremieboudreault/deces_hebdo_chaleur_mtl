@@ -4,7 +4,7 @@
 # Step 01 : Tidy ISQ weekly death data into proper format.
 
 
-# Project : deces_isq_chaleur
+# Project : deces_hebdo_chaleur_mtl
 # Author  : Jeremie Boudreault
 # Email   : Prenom.Nom@inrs.ca
 # Depends : R (v4.2.1)

@@ -4,7 +4,7 @@
 # Step 03 : Download raw hourly data from ECCC given the station list.
 
 
-# Project : deces_isq_chaleur
+# Project : deces_hebdo_chaleur_mtl
 # Author  : Jeremie Boudreault
 # Email   : Prenom.Nom@inrs.ca
 # Depends : R (v4.2.1)
