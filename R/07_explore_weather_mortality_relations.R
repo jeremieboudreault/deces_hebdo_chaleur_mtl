@@ -27,27 +27,30 @@ library(jtheme)
 
 corrplot_full <- function(mcor, title = NA) {
     corrplot::corrplot(
-        corr   = mcor,
-        col    = COL2("RdBu", 200)[-(80:120)],
-        method = "number",
-        title  = title,
-        type   = "lower",
-        tl.pos = "lt",
-        tl.col = "black",
-        tl.cex = 0.7,
-        tl.srt = 30,
+        corr     = mcor,
+        col      = rev(COL2("RdBu", 200)[-(80:120)]),
+        method   = "number",
+        title    = title,
+        type     = "lower",
+        tl.pos   = "lt",
+        tl.col   = "black",
+        tl.cex   = 0.7,
+        tl.srt   = 30,
         number.cex = 0.8,
-        cl.pos = "n",
-        mar    = if(is.na(title)) c(0, 0, 0.2, 0) else c(0, 0, 2, 0)
+        cl.pos   = "n",
+        mar      = if(is.na(title)) c(0, 0, 0.2, 0) else c(0, 0, 2, 0),
+        na.label = "NA"
     )
     corrplot::corrplot(
-        corr   = mcor,
-        col    = COL2("RdBu", 200)[-(80:120)],
-        method = "ellipse",
-        type   = "upper",
-        tl.col = "black",
-        tl.pos = "n",
-        add = TRUE
+        corr     = mcor,
+        col      = rev(COL2("RdBu", 200)[-(80:120)]),
+        method   = "ellipse",
+        type     = "upper",
+        tl.col   = "black",
+        tl.pos   = "n",
+        add      = TRUE,
+        na.label = "NA"
+
     )
 }
 
@@ -63,25 +66,29 @@ data <- data.table::fread("data/weekly_death_weather_om.csv", dec = ",")
 
 # Initial analysis with all months.
 mcor <- cor(data[, .(
-    N_DEATH, OM_MONTH, OM_CSPLINE, OM_USPLINE, OM_POLY,
-    TEMP_MIN_MIN, TEMP_MIN_MEAN, TEMP_MEAN_MIN, TEMP_MEAN_MEAN,
-    TEMP_MEAN_MAX, TEMP_MAX_MEAN, TEMP_MAX_MAX
-)])
+    N_DEATH, OM_MONTH,
+    T_MIN_WMEAN, T_MEAN_WMEAN, T_MAX_WMEAN,
+    HMDX_MIN_WMEAN, HMDX_MEAN_WMEAN, HMDX_MAX_WMEAN,
+    TDEW_MEAN_WMEAN, WDCHL_MEAN_WMEAN, RELH_MEAN_WMEAN,
+    PRES_MEAN_WMEAN, WDSPD_MEAN_WMEAN, PRCIP_SUM_WSUM, VISB_MEAN_WMEAN
+)], use = "pairwise.complete.obs")
 
 # Plot and save correlation matrix.
-pdf("plots/fig_7_1_cor_mat.pdf", width = 7, height = 5)
+pdf("plots/supp/fig_s2_1_cor_mat.pdf", width = 10, height = 8)
 corrplot_full(mcor, "Matrice de corrélation (tous les mois)")
 dev.off()
 
 # Analysis with summer months only.
 mcor_summer <- cor(data[WEEK > 16 & WEEK < 38, .(
-    N_DEATH, OM_MONTH, OM_CSPLINE, OM_USPLINE, OM_POLY,
-    TEMP_MIN_MIN, TEMP_MIN_MEAN, TEMP_MEAN_MIN,
-    TEMP_MEAN_MEAN, TEMP_MEAN_MAX, TEMP_MAX_MEAN, TEMP_MAX_MAX
-)])
+    N_DEATH, OM_MONTH,
+    T_MIN_WMEAN, T_MEAN_WMEAN, T_MAX_WMEAN,
+    HMDX_MIN_WMEAN, HMDX_MEAN_WMEAN, HMDX_MAX_WMEAN,
+    TDEW_MEAN_WMEAN, RELH_MEAN_WMEAN,
+    PRES_MEAN_WMEAN, WDSPD_MEAN_WMEAN, PRCIP_SUM_WSUM, VISB_MEAN_WMEAN
+)], use = "pairwise.complete.obs")
 
 # Plot and save correlation matrix.
-pdf("plots/fig_7_2_cor_mat_ete.pdf", width = 7, height = 5)
+pdf("plots/supp/fig_s2_2_cor_mat_ete.pdf", width = 10, height = 8)
 corrplot_full(mcor_summer, "Matrice de corrélation (mai-septembre)")
 dev.off()
 
@@ -97,14 +104,14 @@ pal <- rev(RColorBrewer::brewer.pal(9L, "RdBu")[c(1:3, 7:9)])
 
 # Plot.
 ggplot(data, aes(x = MID_DATE, y = OM_MONTH)) +
-    geom_line(aes(col = TEMP_MEAN_MEAN)) +
+    geom_line(aes(col = T_MEAN_WMEAN)) +
     geom_point(data = data_om_top30, pch = 1, alpha = 0.8) +
     geom_hline(yintercept = 0, lty = 3, alpha = 0.8) +
     scale_color_gradientn(colors = pal, guide = guide_colourbar(
         barwidth = 10, barheight = 1, ticks = FALSE)
     ) +
     ggtitle("30 surmortalités les plus importantes à Montréal") +
-    labs(y = "Surmortalité hebdomadaire", x = "Date", color = "Températures :") +
+    labs(y = "Surmortalité hebdomadaire", x = "Date", color = "Températures moyennes hebdo. :") +
     jtheme()
 
 # Save.
