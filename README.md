@@ -73,23 +73,23 @@ Les surmortalités résultantes avec les 4 méthodes étant très similaires, no
 
 Par la suite, les données de températures ont été conjointement avec les mortalités et surmortalités. Un graphique intéressant était d'extraire les 30 plus grandes surmortalités en fonction de la température.
 
-**Figure 6 : 30 surmortalités les plus importantes à Montréal**
+**Figure 5 : Surmortalités importantes à Montréal et temprératures**
 
-<p align="center"><img src = "plots/fig_6_surmortalites_montreal.jpg" width = "600px" /></p>
+<p align="center"><img src = "plots/fig_5_surmortalites_montreal_temperatures.jpg" width = "600px" /></p>
 
 Finalement, des relations ont été établis entre la température et la mortalité/surmortalité pour Montréal.
 
-**Figure 7.1 : Relation avec les températures moyennes (2010-2022)**
+**Figure 6.1 : Relation avec les températures moyennes (2010-2022)**
 
-<p align="center"><img src = "plots/fig_7_1_relations_tmoymoy.jpg" width = "600px" /></p>
+<p align="center"><img src = "plots/fig_6_1_relations_tmoymoy.jpg" width = "600px" /></p>
 
-**Figure 7.2 : Relation avec les températures moyennes (2010-2019)**
+**Figure 6.2 : Relation avec les températures moyennes (2010-2019)**
 
-<p align="center"><img src = "plots/fig_7_2_relations_tmoymoy_precovid.jpg" width = "600px" /></p>
+<p align="center"><img src = "plots/fig_6_2_relations_tmoymoy_precovid.jpg" width = "600px" /></p>
 
-**Figure 9.3 : Relation avec les températures maximales (2010-2019)**
+**Figure 6.3 : Relation avec les températures maximales (2010-2019)**
 
-<p align="center"><img src = "plots/fig_7_3_relations_tmaxmoy_precovid.jpg" width = "600px" /></p>
+<p align="center"><img src = "plots/fig_6_3_relations_tmaxmoy_precovid.jpg" width = "600px" /></p>
 
 
 Conclusion
