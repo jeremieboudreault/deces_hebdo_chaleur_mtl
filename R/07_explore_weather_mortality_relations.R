@@ -144,7 +144,7 @@ generate_plot <- function(
     death_name   <- if (death_metric == "N_DEATH") {
         "Mortalité"
     } else {
-        "Surmoralité"
+        "Surmortalité"
     }
 
     # Period name.
