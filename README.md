@@ -81,15 +81,15 @@ Finalement, des relations ont été établis entre la température observée (mo
 
 **Figure 6.1 : Relation avec les températures moyennes (2010-2022)**
 
-<p align="center"><img src = "plots/fig_6_1_relations_tmoymoy.jpg" width = "600px" /></p>
+<p align="center"><img src = "plots/fig_6_1_relations_tmoy.jpg" width = "600px" /></p>
 
 **Figure 6.2 : Relation avec les températures moyennes (2010-2019)**
 
-<p align="center"><img src = "plots/fig_6_2_relations_tmoymoy_precovid.jpg" width = "600px" /></p>
+<p align="center"><img src = "plots/fig_6_2_relations_tmoy_precovid.jpg" width = "600px" /></p>
 
 **Figure 6.3 : Relation avec les températures maximales (2010-2019)**
 
-<p align="center"><img src = "plots/fig_6_3_relations_tmaxmoy_precovid.jpg" width = "600px" /></p>
+<p align="center"><img src = "plots/fig_6_3_relations_tmax_precovid.jpg" width = "600px" /></p>
 
 
 Conclusion
