@@ -60,16 +60,16 @@ Résultats
 
 Plutôt que d'étudier les mortalités directement, j'ai convenu qu'il serait mieux de regarder les surmortalités, c'est-à-dire les pics de mortalité au-delà de ceux normalement attendus. J'ai utilisé 4 méthodes pour trouver les surmortalités :
 
-+ Moyenne des mortalités à chaque mois durant l'année
-+ Spline continue en fonction du temps du passe (période pré-COVID-19 seulement)
-+ Spline unique en fonction de la semaine
-+ Fonction polynomiale de degrée 3 en fonction de la semaine
++ **Mensuel** : Moyenne des mortalités pour chaque mois de l'année
++ **Polynomiale unique** : Fonction polynomiale de degrée 3 en fonction du numéro de la semaine
++ **Spline unique** : Spline unique en fonction du numéro de la semaine
++ **Spline continue** : Spline continue en fonction du temps (période pré-COVID-19 seulement)
 
 **Figure 4 : Surmortalité calculée avec les 4 méthodes**
 
 <p align="center"><img src = "plots/fig_4_surmortalite_resultats.jpg" width = "600px" /></p>
 
-Les surmortalités résultantes avec les 4 méthodes étaient très similaires. 
+Les surmortalités résultantes avec les 4 méthodes étant très similaires, nous avons retenu la méthode par mois pour les calculs qui suivent.
 
 Par la suite, les données de températures ont été conjointement avec les mortalités et surmortalités. Un graphique intéressant était d'extraire les 30 plus grandes surmortalités en fonction de la température.
 
