@@ -69,7 +69,7 @@ data_wout_covid[, DATE_IDS := as.integer(as.factor(MID_DATE))]
 data[, DATE_IDS := as.integer(as.factor(MID_DATE))]
 
 # Fit a smoothing spline with ~3 degrees of freedom per year
-fit <- lm(N_DEATH ~ bs(DATE_IDS, df = 30), data = data_wout_covid, )
+fit <- lm(N_DEATH ~ splines::bs(DATE_IDS, df = 30), data = data_wout_covid, )
 data_wout_covid$TREND_CSPLINE <- predict(fit)
 
 # Need to retrieve the spline for the period 2020+.
@@ -147,7 +147,7 @@ p3
 # Fit polynomial regression over the weeks.
 fit <- lm(N_DEATH ~ poly(WEEK, degree = 4), data = data_wout_covid)
 trend_poly <- data.frame(WEEK = 1:53)
-trend_poly$TREND_POLY <- predict(fit, newdata = newdata)
+trend_poly$TREND_POLY <- predict(fit, newdata = trend_poly)
 plot(trend_poly)
 
 # Merge with data.
@@ -179,7 +179,7 @@ ggpubr::ggarrange(
 )
 
 # Save.
-jtheme::save_ggplot("plots/fig_5_deces_mtl_trends.jpg", size= "rectbig")
+jtheme::save_ggplot("plots/supp/fig_s1_surmortalite_methodes.jpg", size= "rectbig")
 
 
 # Compute over mortality -------------------------------------------------------
@@ -203,7 +203,7 @@ ggplot(data, aes(x = MID_DATE)) +
     jtheme(legend.title = FALSE)
 
 # Save plot of over-mortality.
-jtheme::save_ggplot("plots/fig_6_surmortalite.jpg")
+jtheme::save_ggplot("plots/fig_4_surmortalite_resultats.jpg")
 
 
 # Export -----------------------------------------------------------------------
