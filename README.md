@@ -71,13 +71,13 @@ Plutôt que d'étudier les mortalités directement, j'ai convenu qu'il serait mi
 
 Les surmortalités résultantes avec les 4 méthodes étant très similaires, nous avons retenu la méthode par mois pour les calculs qui suivent.
 
-Par la suite, les données de températures ont été conjointement avec les mortalités et surmortalités. Un graphique intéressant était d'extraire les 30 plus grandes surmortalités en fonction de la température.
+Les données de températures ont ensuite été ajoutées conjointement avec les mortalités et surmortalités. Un graphique intéressant était d'extraire les 30 plus grandes surmortalités en fonction de la température observée.
 
 **Figure 5 : Surmortalités importantes à Montréal et temprératures**
 
 <p align="center"><img src = "plots/fig_5_surmortalites_montreal_temperatures.jpg" width = "600px" /></p>
 
-Finalement, des relations ont été établis entre la température et la mortalité/surmortalité pour Montréal.
+Finalement, des relations ont été établis entre la température observée (moyenne ou maximale) et la mortalité/surmortalité pour Montréal et Laval.
 
 **Figure 6.1 : Relation avec les températures moyennes (2010-2022)**
 
@@ -96,7 +96,7 @@ Conclusion
 --------------------------------------------------------------------------------
 
 
-La mortalité/surmortalité à Montréal augmente de manière non linéaire à mesure les températures deviennent plus élevées. De plus, les pics de surmortalité permettent d'identifier les pics d'importance en lien avec des épisodes particulièrement chauds, notamment en 2010, en 2018, en 2020 (simultanément à un de COVID-19) et en mai 2022, plus récemment.
+La mortalité/surmortalité à Montréal et Laval augmente de manière non linéaire à mesure les températures deviennent plus élevées. De plus, les pics de surmortalité permettent d'identifier les pics d'importance en lien avec des épisodes particulièrement chauds, notamment en 2010, en 2018, en 2020 (simultanément à un de COVID-19) et en mai 2022, plus récemment.
 
 
 Pistes futures
