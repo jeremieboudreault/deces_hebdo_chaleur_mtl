@@ -110,12 +110,13 @@ ggplot(data, aes(x = MID_DATE, y = OM_MONTH)) +
     scale_color_gradientn(colors = pal, guide = guide_colourbar(
         barwidth = 10, barheight = 1, ticks = FALSE)
     ) +
-    ggtitle("30 surmortalités les plus importantes à Montréal") +
-    labs(y = "Surmortalité hebdomadaire", x = "Date", color = "Températures moyennes hebdo. :") +
+    ggtitle("Surmortalités importantes à Montréal et températures observées") +
+    labs(y = "Surmortalité hebdomadaire", x = "Date",
+         color = "Températures moyennes hebdomadaires :") +
     jtheme()
 
 # Save.
-jtheme::save_ggplot("plots/fig_8_surmortalites_montreal.jpg", "rect")
+jtheme::save_ggplot("plots/fig_5_surmortalites_montreal_temperatures.jpg", "rect")
 
 
 # Generate a plot of the relation between temperature and mortality ------------
