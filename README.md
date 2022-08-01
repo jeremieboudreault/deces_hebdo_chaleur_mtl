@@ -65,15 +65,11 @@ Plutôt que d'étudier les mortalités directement, j'ai convenu qu'il serait mi
 + Spline unique en fonction de la semaine
 + Fonction polynomiale de degrée 3 en fonction de la semaine
 
-**Figure 4 : Résultat des 4 méthodes pour extraire la surmortalité**
+**Figure 4 : Surmortalité calculée avec les 4 méthodes**
 
-<p align="center"><img src = "plots/fig_4_deces_mtl_trends.jpg" width = "600px" /></p>
+<p align="center"><img src = "plots/fig_4_surmortalite_resultats.jpg" width = "600px" /></p>
 
-Les surmortalités résultantes avec les 4 méthodes étaient très similaires.
-
-**Figure 5 : Surmortalité avec les 4 méthodes**
-
-<p align="center"><img src = "plots/fig_5_surmortalite.jpg" width = "600px" /></p>
+Les surmortalités résultantes avec les 4 méthodes étaient très similaires. 
 
 Par la suite, les données de températures ont été conjointement avec les mortalités et surmortalités. Un graphique intéressant était d'extraire les 30 plus grandes surmortalités en fonction de la température.
 
