@@ -1,7 +1,7 @@
-# 05_explore_weather_om_relations.R
+# 07_explore_weather_mortality_relations.R
 
 
-# Step 05 : Explore relations between OM and weather variables.
+# Step 07 : Explore relations between OM and weather variables.
 
 
 # Project : deces_isq_chaleur
