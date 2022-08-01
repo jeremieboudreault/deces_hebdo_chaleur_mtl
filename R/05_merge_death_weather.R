@@ -1,13 +1,14 @@
-# 03_merge_death_weather.R
+# 05_merge_death_weather.R
 
 
-# Step 03 : Merge weather and death data.
+# Step 05 : Merge weather and death data at the weekly level.
 
 
 # Project : deces_isq_chaleur
 # Author  : Jeremie Boudreault
-# Email   : Jeremie.Boudreault [at] inrs [dot] ca
-# Depends : R (v4.1.2)
+# Email   : Prenom.Nom@inrs.ca
+# Depends : R (v4.2.1)
+# Imports : jtheme (https://github.com/jeremieboudreault/jtheme)
 # License : CC BY-NC-ND 4.0
 
 
