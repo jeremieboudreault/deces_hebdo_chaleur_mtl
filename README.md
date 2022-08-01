@@ -110,6 +110,6 @@ Pistes futures
 + Raffiner la méthode utilisée pour extraire la surmortalité
 + Ajouter les données météorologiques de DayMet
 + Mieux gérer les données manquantes dans les données horaires en utilisant les flags de ECCC
-+ Créer un package avec les fonctions utiles et réutilisables au sein d'autres projets
++ Déplacer les fonctions R au sein d'un package (`jutils`)
 
 **Enjoy !** ✌🏻
