@@ -20,3 +20,21 @@ library(sf)
 library(ggplot2)
 library(terra)
 
+
+# Import a sample of Daymet NetCDF ---------------------------------------------
+
+
+# Path to daymet NetCDF.
+daymet_path <- "/Users/jeremieboudreault/Downloads/"
+
+# Set parameters.
+year <- 2021
+var <- "tmax"
+
+# File name.
+filename <- sprintf("daymet_v4_daily_na_%s_%s.nc", var, year)
+
+# Load a unique raster of Daymet.
+daymet <- terra::rast(file.path(daymet_path, filename))
+
+
