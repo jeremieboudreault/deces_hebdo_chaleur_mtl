@@ -125,3 +125,29 @@ daymet_values <- data.table(
 )
 
 
+# Validation with ECCC dataset -------------------------------------------------
+
+
+# Load daily weather variables for Montreal/Laval of ECCC.
+eccc <- qs::qread(file.path("data/eccc/mtl_data_daily_agg.qs"))
+
+# Extract daily Tmax values for <YEAR> == year.
+eccc_sub <- eccc[YEAR == year, .(YEAR = year, VAR = var, DOY = 1:365, VALUES = T_MAX, SOURCE = "ECCC")]
+
+# Merge both tables.
+values_both <- rbind(daymet_values, eccc_sub)
+
+# Coefficient of determination.
+R2 <- cor(
+    x = values_both[SOURCE=="Daymet", VALUES],
+    y = values_both[SOURCE=="ECCC", VALUES]
+)^2
+
+# Plot both data.
+ggplot(data = values_both) +
+geom_line(aes(x = DOY, y = VALUES, col = SOURCE)) +
+scale_color_manual(values = c(jtheme::colors$blue, jtheme::colors$red)) +
+ggtitle("Daymet and ECCC values", paste0(toupper(var), " - ", year)) +
+labs(x = "Day of year", y = "Values") +
+annotate("text", x = Inf, y = -Inf, label = paste0("R2 =", round(R2, 3L)), hjust = 1.1, vjust = -1) +
+jtheme::jtheme(facet = TRUE, legend.title = FALSE)
