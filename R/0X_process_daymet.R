@@ -62,7 +62,6 @@ pal <- grDevices::colorRampPalette(colors = pal)(50L)
 
 # Plot DayMet raster for the day 150.
 day <- 120
-par(mfrow=c(1, 3))
 terra::plot(
     x    = daymet[[day]],
     main = paste0(var, " from Daymet, day ", day, " of year ", year),
@@ -91,7 +90,22 @@ extent <- terra::ext(c(
 daymet_crop <- terra::crop(daymet, extent)
 
 # Plot a random day.
-terra::plot(daymet_crop[[day]], main = day, col = pal)
+terra::plot(
+    x    = daymet_crop[[day]],
+    main = paste0("Cropped ", var, " from Daymet, day ", day, " of year ", year),
+    col  = pal
+)
 plot(mask_proj[, 1L], add = TRUE, col = rgb(1, 1, 1, 0.2), lwd = 1.5)
+
+# Mask daymet.
+daymet_mask <- terra::mask(daymet_crop, terra::vect(mask_proj), touches = FALSE)
+
+# Plot a day.
+terra::plot(
+    x    = daymet_mask[[day]],
+    main = paste0("Masked ", var, " from Daymet, day ", day, " of year ", year),
+    col  = pal
+)
+plot(mask_proj[, 1L], add = TRUE, col = NA, lwd = 1.5)
 
 
