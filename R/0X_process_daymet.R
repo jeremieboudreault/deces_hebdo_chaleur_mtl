@@ -109,3 +109,19 @@ terra::plot(
 plot(mask_proj[, 1L], add = TRUE, col = NA, lwd = 1.5)
 
 
+# Spatial aggregation by taking the mean value ---------------------------------
+
+
+# Take the mean value over each layer.
+values <- apply(terra::as.array(daymet_mask), 3L, mean, na.rm = TRUE)
+
+# Create a data.table of the resulting time series.
+daymet_values <- data.table(
+    YEAR   = year,
+    DOY    = 1:365,
+    VAR    = var,
+    VALUES = values,
+    SOURCE = "Daymet"
+)
+
+
