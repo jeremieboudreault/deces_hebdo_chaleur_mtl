@@ -29,7 +29,7 @@ daymet_path <- "/Users/jeremieboudreault/Downloads/"
 
 # Set parameters.
 year <- 2021
-var <- "tmax"
+var <- c("tmax", "prcp")
 
 # File name.
 filename <- sprintf("daymet_v4_daily_na_%s_%s.nc", var, year)
@@ -56,6 +56,7 @@ mask_proj <- sf::st_transform(mask, terra::crs(daymet))
 
 # Extract RdBu palette colors.
 pal <- rev(RColorBrewer::brewer.pal(9, "RdBu")[-5L])
+#pal <- RColorBrewer::brewer.pal(9, "Blues") # For precip.
 
 # Brew 50 more colors using the palette "pal".
 pal <- grDevices::colorRampPalette(colors = pal)(50L)
@@ -69,7 +70,7 @@ terra::plot(
 )
 
 # Add mask.
-plot(mask_proj, add = TRUE, lwd = 2)
+plot(mask_proj[, 1L], add = TRUE, lwd = 2)
 
 
 # Crop and mask Daymet given the mask polygon ----------------------------------
@@ -133,6 +134,7 @@ eccc <- qs::qread(file.path("data/eccc/mtl_data_daily_agg.qs"))
 
 # Extract daily Tmax values for <YEAR> == year.
 eccc_sub <- eccc[YEAR == year, .(YEAR = year, VAR = var, DOY = 1:365, VALUES = T_MAX, SOURCE = "ECCC")]
+#eccc_sub <- eccc[YEAR == year, .(YEAR = year, VAR = var, DOY = 1:365, VALUES = PRCIP_SUM, SOURCE = "ECCC")]
 
 # Merge both tables.
 values_both <- rbind(daymet_values, eccc_sub)
@@ -145,12 +147,14 @@ R2 <- cor(
 
 # Plot both data.
 ggplot(data = values_both) +
-geom_line(aes(x = DOY, y = VALUES, col = SOURCE)) +
+geom_line(aes(x = DOY, y = VALUES, col = SOURCE), alpha = 0.7) +
 scale_color_manual(values = c(jtheme::colors$blue, jtheme::colors$red)) +
 ggtitle("Daymet and ECCC values", paste0(toupper(var), " - ", year)) +
 labs(x = "Day of year", y = "Values") +
 annotate("text", x = Inf, y = -Inf, label = paste0("R2 =", round(R2, 3L)), hjust = 1.1, vjust = -1) +
+#annotate("text", x = -Inf, y = Inf, label = paste0("R2 =", round(R2, 3L)), hjust = -0.1, vjust = 1.6) +  # For precip
 jtheme::jtheme(facet = TRUE, legend.title = FALSE)
+#jtheme::jtheme(facet = TRUE, legend.title = FALSE, expand.y = FALSE) # For precip
 
 
 # Exports to cache -------------------------------------------------------------
