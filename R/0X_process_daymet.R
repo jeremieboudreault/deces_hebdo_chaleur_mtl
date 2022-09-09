@@ -38,3 +38,17 @@ filename <- sprintf("daymet_v4_daily_na_%s_%s.nc", var, year)
 daymet <- terra::rast(file.path(daymet_path, filename))
 
 
+# Load mask to crop and mask Daymet --------------------------------------------
+
+
+# Load RSS of Quebec.
+mask <- sf::read_sf("data/rss/Territoires_RSS_2022.shp")
+
+# Subset only Montreal and Laval RSS.
+mask <- mask[mask$RSS_code %in% c("06", "13"), ]
+
+# Project mask to CRS of Daymet.
+mask_proj <- sf::st_transform(mask, terra::crs(daymet))
+
+
+
