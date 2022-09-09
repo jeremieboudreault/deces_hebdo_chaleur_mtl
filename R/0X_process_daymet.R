@@ -29,7 +29,7 @@ daymet_path <- "/Users/jeremieboudreault/Downloads/"
 
 # Set parameters.
 year <- 2021
-var <- c("tmax", "prcp")
+var <- c("tmax", "prcp")[1L]
 
 # File name.
 filename <- sprintf("daymet_v4_daily_na_%s_%s.nc", var, year)
@@ -77,14 +77,14 @@ plot(mask_proj[, 1L], add = TRUE, lwd = 2)
 
 
 # Extract limits from the mask
-cma_limits <- sf::st_bbox(mask_proj)
+limits <- sf::st_bbox(mask_proj)
 
 # Create extent from the mask.
 extent <- terra::ext(c(
-    cma_limits[1L],
-    cma_limits[3L],
-    cma_limits[2L],
-    cma_limits[4L]
+    limits[1L],
+    limits[3L],
+    limits[2L],
+    limits[4L]
 ))
 
 # Crop daymet.
