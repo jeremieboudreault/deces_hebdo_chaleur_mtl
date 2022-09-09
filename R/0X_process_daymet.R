@@ -51,4 +51,25 @@ mask <- mask[mask$RSS_code %in% c("06", "13"), ]
 mask_proj <- sf::st_transform(mask, terra::crs(daymet))
 
 
+# Plot Daymet and mask ---------------------------------------------------------
+
+
+# Extract RdBu palette colors.
+pal <- rev(RColorBrewer::brewer.pal(9, "RdBu")[-5L])
+
+# Brew 50 more colors using the palette "pal".
+pal <- grDevices::colorRampPalette(colors = pal)(50L)
+
+# Plot DayMet raster for the day 150.
+day <- 120
+terra::plot(
+    x    = daymet[[day]],
+    main = paste0(var, " from Daymet, day ", day, " of year ", year),
+    col  = pal
+)
+
+# Add mask.
+plot(mask_proj, add = TRUE, lwd = 2)
+
+
 
