@@ -104,7 +104,7 @@ Pistes futures
 
 + Bâtir un modèle prédictif pour la relation décès-chaleur avec d'autres variables météos
 + Raffiner la méthode utilisée pour extraire la surmortalité
-+ Ajouter les données météorologiques de DayMet
++ **Ajouter les données météorologiques de DayMet**
 + Mieux gérer les données manquantes dans les données horaires en utilisant les flags de ECCC
 + Déplacer les fonctions R au sein d'un package (`jutils`)
 
