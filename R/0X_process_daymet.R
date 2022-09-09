@@ -152,7 +152,7 @@ scale_color_manual(values = c(jtheme::colors$blue, jtheme::colors$red)) +
 ggtitle("Daymet and ECCC values", paste0(toupper(var), " - ", year)) +
 labs(x = "Day of year", y = "Values") +
 annotate("text", x = Inf, y = -Inf, label = paste0("R2 =", round(R2, 3L)), hjust = 1.1, vjust = -1) +
-#annotate("text", x = -Inf, y = Inf, label = paste0("R2 =", round(R2, 3L)), hjust = -0.1, vjust = 1.6) +  # For precip
+#annotate("text", x = Inf, y = Inf, label = paste0("R2 =", round(R2, 3L)), hjust = 1.1, vjust = 1.6) +  # For precip
 jtheme::jtheme(facet = TRUE, legend.title = FALSE)
 #jtheme::jtheme(facet = TRUE, legend.title = FALSE, expand.y = FALSE) # For precip
 
