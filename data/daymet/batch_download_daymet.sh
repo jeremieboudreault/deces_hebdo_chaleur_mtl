@@ -24,5 +24,5 @@ for ((year = startyear; year <= endyear; year++)); do
     echo "-------------------------------------------------------"
     echo "-------- Downloading ${var} for year ${year} in ${region}. --------"
     echo "-------------------------------------------------------"
-    #wget "https://thredds.daac.ornl.gov/thredds/fileServer/ornldaac/1840/daymet_v4_daily_${region}_${var}_${year}.nc" -P $outdir
+    wget "https://thredds.daac.ornl.gov/thredds/fileServer/ornldaac/1840/daymet_v4_daily_${region}_${var}_${year}.nc" -P $outdir
 done;
