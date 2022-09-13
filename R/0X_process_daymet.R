@@ -1,4 +1,4 @@
-# 0X_process_daymet.R
+# 0X_mask_spatial_agg_daymet.R
 
 
 # Step 0X : Process daymet database into a spatially aggregated time series.
@@ -10,6 +10,11 @@
 # Depends : R (v4.2.1)
 # Imports : jtheme (https://github.com/jeremieboudreault/jtheme)
 # License : CC BY-NC-ND 4.0
+
+
+# Note : User must first download DayMet NetCDF using the bash script located
+#        in data/daymet/. Then, user must update the path to daymet NetCDF
+#        variable 'daymet_path' in the "Settings for Daymet" section below.
 
 
 # Packages ---------------------------------------------------------------------
