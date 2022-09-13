@@ -1,4 +1,4 @@
-# 0X_process_daymet_spat_aggg.R
+# 0X_process_daymet_spat_agg.R
 
 
 # Step 0X : Process daymet database into a spatially aggregated time series.
@@ -53,10 +53,10 @@ filename <- sprintf("daymet_v4_daily_na_%s_%s.nc", vars[1L], year_end)
 daymet <- terra::rast(file.path(daymet_path, filename))
 
 
-# Load mask to crop and mask Daymet --------------------------------------------
+# Settings for the mask --------------------------------------------------------
 
 
-# Load RSS of Quebec.
+# Load mask using RSS of Quebec.
 mask <- sf::read_sf("data/rss/Territoires_RSS_2022.shp")
 
 # Subset only Montreal and Laval RSS.
@@ -65,8 +65,16 @@ mask <- mask[mask$RSS_code %in% c("06", "13"), ]
 # Project mask to CRS of Daymet.
 mask_proj <- sf::st_transform(mask, terra::crs(daymet))
 
+# Extract limits from the mask
+limits <- sf::st_bbox(mask_proj)
 
-# Plot Daymet and mask ---------------------------------------------------------
+# Create extent from the mask.
+extent <- terra::ext(c(
+    limits[1L],
+    limits[3L],
+    limits[2L],
+    limits[4L]
+))
 
 
 # Extract RdBu palette colors.
