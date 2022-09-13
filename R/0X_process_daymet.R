@@ -232,7 +232,7 @@ eccc_melt <- data.table::melt.data.table(
     id.vars  = c("YEAR", "DATE", "DOY"),
     var      = "VAR",
     value    = "VALUES"
-)
+)[order(DATE), ]
 
 # Melt Daymet data.
 daymet_melt <- data.table::melt.data.table(
@@ -240,7 +240,10 @@ daymet_melt <- data.table::melt.data.table(
     id.vars  = c("YEAR", "DATE", "DOY"),
     var      = "VAR",
     value    = "VALUES"
-)
+)[order(DATE), ]
+
+# Spot check that both table have the same information.
+nrow(daymet_melt) == nrow(eccc_melt)
 
 # Merge both table.
 values <- rbind(
@@ -251,31 +254,55 @@ values <- rbind(
 # Plot all data.
 for (var in c("T_MAX", "T_MIN", "T_MEAN")) {
 
-    # Compute R2.
-    R2 <- round(cor(
-        x   = values[SOURCE == "Daymet" & VAR == var, VALUES],
-        y   = values[SOURCE == "ECCC" & VAR == var, VALUES],
-        use = "complete.obs"
-    )^2, 3)
+    # Create a new table with values of ECCC and Daymet.
+    values_sub <- data.table::data.table(
+        ECCC   = values[SOURCE == "ECCC" & VAR == var, VALUES],
+        Daymet = values[SOURCE == "Daymet" & VAR == var, VALUES]
+    )
 
-    # Plot.
+    # Compute R2.
+    R2 <- values_sub[, round(cor(ECCC, Daymet, use = "complete.obs"), 3L)]
+
+    # Set variable name to lower case.
+    varl <- tolower(var)
+
+    # First plot --- all data.
     print(
     ggplot(data = values[VAR == var, ]) +
     geom_line(aes(x = DOY, y = VALUES, col = SOURCE), lwd = 0.2, alpha = 0.8) +
     scale_color_manual(values = c(jtheme::colors$blue, jtheme::colors$red)) +
     ggtitle(
-        label  = "Daymet and ECCC values",
-        subtitle = paste0(tolower(var), " (R²=", round(R2, 3L), ")")
+        label  =   paste0("Daymet and ECCC values"),
+        subtitle = paste0(varl)
     ) +
-    labs(x = "Day of year", y = "Values") +
+    labs(x = "Day of year", y = paste0("Values (", varl, ")")) +
     facet_wrap(facets = "YEAR") +
     jtheme::jtheme(facet = TRUE, legend.title = FALSE)
     )
 
     # Save plot to plots/daymet/.
     jtheme::save_ggplot(
-        file = paste0("plots/daymet/3_validations_", tolower(var), ".jpg"),
+        file = paste0("plots/daymet/3_valid_eccc_values_", varl, ".jpg"),
         size = "sqrbig"
+    )
+
+    # Second plot --- scatter plot.
+    print(
+    ggplot(data = values_sub, aes(x = ECCC, y = Daymet)) +
+    geom_point(alpha = 0.1) +
+    ggtitle(
+        label    = paste0("Scatterplot of Daymet and ECCC ", varl, " values"),
+        subtitle = paste0("R² = ", round(R2, 3L))
+    ) +
+    geom_abline(intercept = 0L, slope = 1L, col = jtheme::colors$red) +
+    labs(x = paste0("ECCC (", varl, ")"), y = paste0("Daymet (", varl, ")")) +
+    jtheme::jtheme(facet = TRUE, legend.title = FALSE)
+    )
+
+    # Save plot to plots/daymet/.
+    jtheme::save_ggplot(
+        file = paste0("plots/daymet/4_valid_eccc_scatterplot_", varl, ".jpg"),
+        size = "sqr"
     )
 
 }
