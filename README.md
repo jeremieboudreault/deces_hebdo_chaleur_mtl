@@ -26,11 +26,13 @@ J'ai téléchargé les données de décès hebdomadaires de `2010` à `2022` à 
 
 <p align="center"><img src = "plots/fig_1_3_deces_par_sexe.jpg" width = "600px" /></p>
 
-J'ai ensuite téléchargé les données des stations météorologiques d'Environnement et Changement climatique Canada (ECCC) situées à Montréal et Laval à l'aide de l'API d'ECCC. Je n'ai retenu que les stations qui avaient des données au pas de temps horaire dans ces deux régions.
+J'ai ensuite téléchargé les données des stations météorologiques d'[Environnement et Changement climatique Canada](https://climate.weather.gc.ca/historical_data/search_historic_data_e.html) (ECCC) situées à Montréal et Laval à l'aide de l'API d'ECCC. Je n'ai retenu que les stations qui avaient des données au pas de temps horaire dans ces deux régions.
 
 **Figure 2 : Cartes des stations de ECCC à Montréal et Laval**
 
 <p align="center"><img src = "plots/fig_2_carte_stations.jpg" width = "600px" /></p>
+
+> J'ai aussi téléchargé les données de [DayMet](https://daymet.ornl.gov/), des données quotidiennes de réanalyse de la NASA à un résolution de 1km x 1km sur tout l'Amérique du Nord pour plusieurs variables d'intérêt : température minimale et maximale, précipitations, rayonnement solaire, vapeur d'eau, etc. Cependant, ces données n'ont pas été utilisé dans le présent projet car elles étaient similaires aux données d'ECCC.
 
 Les jeux de données horaires ont été préférés à ceux quotidiens car ils contiennent plus de variables que les aggrégations quotidiennes (p. ex. Humidex, pression, humidité relative, etc.).  Des métriques quotidiennes de plusieurs variables météorologiques ont été calculées à partir des observations horaires : 
 
