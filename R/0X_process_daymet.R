@@ -1,7 +1,7 @@
-# 0X_process_daymet_spat_agg.R
+# 05_process_daymet_spat_agg.R
 
 
-# Step 0X : Process daymet database into a spatially aggregated time series.
+# Step 05 : Process daymet database into a spatially aggregated time series.
 
 
 # Project : deces_hebdo_chaleur_mtl
@@ -201,6 +201,9 @@ daymet_dt <- data.table::dcast.data.table(
     value.var = "VALUES"
 )
 
+# Create <T_MEAN> as a mean of <T_MAX> and <T_MIN>
+daymet_dt[, T_MEAN := (T_MAX + T_MIN)/2]
+
 # Export.
 data.table::fwrite(
     x    = daymet_dt,
@@ -217,39 +220,47 @@ data.table::fwrite(
 eccc <- qs::qread("data/eccc/mtl_data_daily_agg.qs")
 
 # Filter out some rows and columns.
-eccc <- eccc[
+eccc_sub <- eccc[
     i = YEAR >= year_start & YEAR <= year_end,
-    j = .(YEAR,DATE, DOY = as.integer(format(DATE, "%j")),
-          T_MAX, T_MIN)
+    j = .(YEAR, DATE, DOY = as.integer(format(DATE, "%j")),
+          T_MAX, T_MIN, T_MEAN)
 ][DOY != 366L, ]
 
-# Melt data.
-eccc_values <- data.table::melt.data.table(
-    data     = eccc,
+# Melt ECCC data.
+eccc_melt <- data.table::melt.data.table(
+    data     = eccc_sub,
+    id.vars  = c("YEAR", "DATE", "DOY"),
+    var      = "VAR",
+    value    = "VALUES"
+)
+
+# Melt Daymet data.
+daymet_melt <- data.table::melt.data.table(
+    data     = daymet_dt[, -c("MONTH", "DAY")],
     id.vars  = c("YEAR", "DATE", "DOY"),
     var      = "VAR",
     value    = "VALUES"
 )
 
 # Merge both table.
-values_both <- rbind(
-    daymet_values[, .(DOY, YEAR, VAR, VALUES, SOURCE = "Daymet")],
-    eccc_values[,   .(DOY, YEAR, VAR, VALUES, SOURCE = "ECCC")]
+values <- rbind(
+    daymet_melt[, .(DOY, YEAR, VAR, VALUES, SOURCE = "Daymet")],
+    eccc_melt[,   .(DOY, YEAR, VAR, VALUES, SOURCE = "ECCC")]
 )
 
 # Plot all data.
-for (var in c("T_MAX", "T_MIN")) {
+for (var in c("T_MAX", "T_MIN", "T_MEAN")) {
 
     # Compute R2.
     R2 <- round(cor(
-        x   = values_both[SOURCE == "Daymet" & VAR == var, VALUES],
-        y   = values_both[SOURCE == "ECCC" & VAR == var, VALUES],
+        x   = values[SOURCE == "Daymet" & VAR == var, VALUES],
+        y   = values[SOURCE == "ECCC" & VAR == var, VALUES],
         use = "complete.obs"
     )^2, 3)
 
     # Plot.
     print(
-    ggplot(data = values_both[VAR == var, ]) +
+    ggplot(data = values[VAR == var, ]) +
     geom_line(aes(x = DOY, y = VALUES, col = SOURCE), lwd = 0.2, alpha = 0.8) +
     scale_color_manual(values = c(jtheme::colors$blue, jtheme::colors$red)) +
     ggtitle(
