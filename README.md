@@ -1,4 +1,4 @@
-Décès hebdomadaires à Montréal et à Laval en fonction de la chaleur observée 🌇
+Décès hebdomadaires et chaleur à Montréal et Laval 🌇
 ================================================================================
 
 + Un projet réalisé dans le cadre de mon Ph. D. à l'[Institut national de la recherche scientifique](http://inrs.ca) (INRS)
