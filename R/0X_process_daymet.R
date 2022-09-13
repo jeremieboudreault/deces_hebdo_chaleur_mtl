@@ -1,4 +1,4 @@
-# 0X_mask_spatial_agg_daymet.R
+# 0X_process_daymet_spat_aggg.R
 
 
 # Step 0X : Process daymet database into a spatially aggregated time series.
