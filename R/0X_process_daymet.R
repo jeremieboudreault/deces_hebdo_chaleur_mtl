@@ -93,7 +93,8 @@ if (show_plot) {
     day <- 120L
     terra::plot(
         x    = daymet[[day]],
-        main = sprintf("%s from Daymet, day %s of year %s.", vars[1L], day, year_end)
+        main = sprintf("%s from Daymet, day %s of year %s.", vars[1L], day, year_end),
+        col  = pal
     )
 
     # Add mask.
