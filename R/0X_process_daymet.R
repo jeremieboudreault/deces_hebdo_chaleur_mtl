@@ -99,30 +99,77 @@ if (show_plot) {
     # Add mask.
     plot(mask_proj[, 1L], add = TRUE, lwd = 2)
 
-# Crop daymet.
-daymet_crop <- terra::crop(daymet, extent)
-
-# Plot a random day.
-terra::plot(
-    x    = daymet_crop[[day]],
-    main = paste0("Cropped ", var, " from Daymet, day ", day, " of year ", year),
-    col  = pal
-)
-plot(mask_proj[, 1L], add = TRUE, col = rgb(1, 1, 1, 0.2), lwd = 1.5)
-
-# Mask daymet.
-daymet_mask <- terra::mask(daymet_crop, terra::vect(mask_proj), touches = FALSE)
-
-# Plot a day.
-terra::plot(
-    x    = daymet_mask[[day]],
-    main = paste0("Masked ", var, " from Daymet, day ", day, " of year ", year),
-    col  = pal
-)
-plot(mask_proj[, 1L], add = TRUE, col = NA, lwd = 1.5)
+}
 
 
-# Spatial aggregation by taking the mean value ---------------------------------
+# Batch processing of DayMet NetCDF --------------------------------------------
+
+
+# Loop all variables.
+for (var in vars) {
+
+# Loop on all years.
+for (year in year_start:year_end) {
+
+    # Message.
+    message("Processing ", var, " of DayMet, year ", year, ".")
+
+    # File name.
+    filename <- sprintf("daymet_v4_daily_na_%s_%s.nc", var, year)
+
+    # Load a the corresponding DayMet NetCDF.
+    daymet <- terra::rast(file.path(daymet_path, filename))
+
+    # Crop daymet.
+    daymet_crop <- terra::crop(daymet, extent)
+
+    # Plot a random of the cropped result.
+    if (show_plot) {
+        terra::plot(
+            x    = daymet_crop[[day]],
+            main = sprintf("Cropped %s from Daymet, day %s of year %s.",
+                           var, day, year),
+            col  = pal
+        )
+        plot(mask_proj[, 1L], add = TRUE, col = rgb(1, 1, 1, 0.2), lwd = 1.5)
+    }
+
+    # Mask daymet.
+    daymet_mask <- terra::mask(daymet_crop, terra::vect(mask_proj), touches = FALSE)
+
+    # Plot a random day of the masked results.
+    if (show_plot) {
+        terra::plot(
+            x    = daymet_mask[[day]],
+            main = sprintf("Masked %s from Daymet, day %s of year %s.",
+                           var, day, year),
+            col  = pal
+        )
+        plot(mask_proj[, 1L], add = TRUE, col = NA, lwd = 1.5)
+    }
+
+    # Take the spatial mean value over each layer.
+    values <- apply(terra::as.array(daymet_mask), 3L, mean, na.rm = TRUE)
+
+    # Create a data.table of the resulting time series.
+    daymet_values <- data.table(
+        YEAR   = year,
+        DOY    = 1:365,
+        VAR    = var,
+        VALUES = values
+    )
+
+    # Export to cache.
+    qs::qsave(
+        x    = daymet_values,
+        file = file.path("cache", sprintf("daymet_spat_agg_%s_%s.qs", var, year))
+    )
+
+# End of loop for <year>.
+}
+
+# End of loop for <var>.
+}
 
 
 # Take the mean value over each layer.
