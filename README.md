@@ -104,9 +104,7 @@ La mortalité/surmortalité à Montréal et Laval augmente de manière non liné
 Pistes futures
 --------------------------------------------------------------------------------
 
-+ Bâtir un modèle prédictif pour la relation décès-chaleur avec d'autres variables météos
++ Mieux gérer les données manquantes dans les données horaires de ECCC
 + Raffiner la méthode utilisée pour extraire la surmortalité
-+ Mieux gérer les données manquantes dans les données horaires en utilisant les flags de ECCC
-+ Déplacer les fonctions R au sein d'un package (`jutils`)
 
 **Enjoy !** ✌🏻
