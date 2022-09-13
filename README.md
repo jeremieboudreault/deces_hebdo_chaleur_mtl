@@ -1,4 +1,4 @@
-Décès hebdomadaires à Montréal en fonction de la chaleur observée 🌇
+Décès hebdomadaires à Montréal et à Laval en fonction de la chaleur observée 🌇
 ================================================================================
 
 + Un projet réalisé dans le cadre de mon Ph. D. à l'[Institut national de la recherche scientifique](http://inrs.ca) (INRS)
@@ -32,8 +32,6 @@ J'ai ensuite téléchargé les données des stations météorologiques d'[Enviro
 
 <p align="center"><img src = "plots/fig_2_carte_stations.jpg" width = "600px" /></p>
 
-> J'ai aussi téléchargé les données de [DayMet](https://daymet.ornl.gov/), des données quotidiennes de réanalyse de la NASA à un résolution de 1km x 1km sur tout l'Amérique du Nord pour plusieurs variables d'intérêt : température minimale et maximale, précipitations, rayonnement solaire, vapeur d'eau, etc. Cependant, ces données n'ont pas été utilisé dans le présent projet car elles étaient similaires aux données d'ECCC.
-
 Les jeux de données horaires ont été préférés à ceux quotidiens car ils contiennent plus de variables que les aggrégations quotidiennes (p. ex. Humidex, pression, humidité relative, etc.).  Des métriques quotidiennes de plusieurs variables météorologiques ont été calculées à partir des observations horaires : 
 
 + Température (minimale, moyenne et maximale)
@@ -56,6 +54,8 @@ Les jeux de données horaires ont été préférés à ceux quotidiens car ils c
 <p align="center"><img src = "plots/fig_3_2_montreal_hmdx.jpg" width = "600px" /></p>
 
 Finalement, les données météorologiques ont été ramenées au pas de temps hebdomadaire en prenant la moyenne des valeurs observées durant la semaine. Ces données ont été fusionnées avec les données de décès totaux hebdomadaire de l'ISQ pour la région de Montréal et Laval.
+
+> **Note** : J'ai aussi téléchargé les données de [DayMet](https://daymet.ornl.gov/), des données quotidiennes de réanalyse de la NASA à un résolution de 1km x 1km sur tout l'Amérique du Nord pour plusieurs variables d'intérêt : température minimale et maximale, précipitations, rayonnement solaire, vapeur d'eau, etc. Cependant, ces données n'ont pas été utilisé dans le présent projet car elles étaient similaires aux données d'ECCC.
 
 Résultats
 --------------------------------------------------------------------------------
@@ -106,7 +106,6 @@ Pistes futures
 
 + Bâtir un modèle prédictif pour la relation décès-chaleur avec d'autres variables météos
 + Raffiner la méthode utilisée pour extraire la surmortalité
-+ **Ajouter les données météorologiques de DayMet**
 + Mieux gérer les données manquantes dans les données horaires en utilisant les flags de ECCC
 + Déplacer les fonctions R au sein d'un package (`jutils`)
 
