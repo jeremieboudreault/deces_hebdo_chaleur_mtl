@@ -26,20 +26,30 @@ library(ggplot2)
 library(terra)
 
 
-# Import a sample of Daymet NetCDF ---------------------------------------------
+# Globals ----------------------------------------------------------------------
+
+
+# Should the plot be displayed of not (slowing down the running of the code).
+show_plot <- FALSE
+
+
+# Settings for DayMET ----------------------------------------------------------
 
 
 # Path to daymet NetCDF.
-daymet_path <- "/Users/jeremieboudreault/Downloads/"
+daymet_path <- "/Volumes/ExtDataPhD/daymet/"
 
-# Set parameters.
-year <- 2021
-var <- c("tmax", "prcp")[1L]
+# Period.
+year_start <- 1980
+year_end <- 2021
+
+# Variables.
+vars <- c("tmax")
 
 # File name.
-filename <- sprintf("daymet_v4_daily_na_%s_%s.nc", var, year)
+filename <- sprintf("daymet_v4_daily_na_%s_%s.nc", vars[1L], year_end)
 
-# Load a unique raster of Daymet.
+# Load a sample raster from Daymet.
 daymet <- terra::rast(file.path(daymet_path, filename))
 
 
