@@ -77,38 +77,27 @@ extent <- terra::ext(c(
 ))
 
 
-# Extract RdBu palette colors.
-pal <- rev(RColorBrewer::brewer.pal(9, "RdBu")[-5L])
-#pal <- RColorBrewer::brewer.pal(9, "Blues") # For precip.
-
-# Brew 50 more colors using the palette "pal".
-pal <- grDevices::colorRampPalette(colors = pal)(50L)
-
-# Plot DayMet raster for the day 150.
-day <- 120
-terra::plot(
-    x    = daymet[[day]],
-    main = paste0(var, " from Daymet, day ", day, " of year ", year),
-    col  = pal
-)
-
-# Add mask.
-plot(mask_proj[, 1L], add = TRUE, lwd = 2)
+# Plot a sample of Daymet ------------------------------------------------------
 
 
-# Crop and mask Daymet given the mask polygon ----------------------------------
+if (show_plot) {
 
+    # Extract RdBu palette colors.
+    pal <- rev(RColorBrewer::brewer.pal(9, "RdBu")[-5L])
+    #pal <- RColorBrewer::brewer.pal(9, "Blues") # For precip.
 
-# Extract limits from the mask
-limits <- sf::st_bbox(mask_proj)
+    # Brew 50 more colors using the palette "pal".
+    pal <- grDevices::colorRampPalette(colors = pal)(50L)
 
-# Create extent from the mask.
-extent <- terra::ext(c(
-    limits[1L],
-    limits[3L],
-    limits[2L],
-    limits[4L]
-))
+    # Plot DayMet raster for the day 150.
+    day <- 120L
+    terra::plot(
+        x    = daymet[[day]],
+        main = sprintf("%s from Daymet, day %s of year %s.", vars[1L], day, year_end)
+    )
+
+    # Add mask.
+    plot(mask_proj[, 1L], add = TRUE, lwd = 2)
 
 # Crop daymet.
 daymet_crop <- terra::crop(daymet, extent)
