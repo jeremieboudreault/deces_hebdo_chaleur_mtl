@@ -282,7 +282,7 @@ for (var in c("T_MAX", "T_MIN", "T_MEAN")) {
 
     # Save plot to plots/daymet/.
     jtheme::save_ggplot(
-        file = paste0("plots/daymet/3_valid_eccc_values_", varl, ".jpg"),
+        file = paste0("plots/daymet/3_valid_all_values_", varl, ".jpg"),
         size = "sqrbig"
     )
 
@@ -301,7 +301,7 @@ for (var in c("T_MAX", "T_MIN", "T_MEAN")) {
 
     # Save plot to plots/daymet/.
     jtheme::save_ggplot(
-        file = paste0("plots/daymet/4_valid_eccc_scatterplot_", varl, ".jpg"),
+        file = paste0("plots/daymet/4_valid_scatterplot_", varl, ".jpg"),
         size = "sqr"
     )
 
