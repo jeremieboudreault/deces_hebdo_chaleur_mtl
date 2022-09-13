@@ -1,7 +1,7 @@
-# 07_explore_weather_mortality_relations.R
+# 08_explore_weather_mortality_relations.R
 
 
-# Step 07 : Explore relations between OM and weather variables.
+# Step 8 : Explore relations between OM and weather variables.
 
 
 # Project : deces_hebdo_chaleur_mtl

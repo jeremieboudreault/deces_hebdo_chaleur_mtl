@@ -1,7 +1,7 @@
-# 05_merge_death_weather.R
+# 06_merge_death_weather.R
 
 
-# Step 05 : Merge weather and death data at the weekly level.
+# Step 6 : Merge weather and death data at the weekly level.
 
 
 # Project : deces_hebdo_chaleur_mtl

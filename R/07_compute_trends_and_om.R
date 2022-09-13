@@ -1,7 +1,7 @@
-# 06_compute_trends_and_om.R
+# 07_compute_trends_and_om.R
 
 
-# Step 06 : Compute trends in data and over-mortality (OM).
+# Step 7 : Compute trends in data and over-mortality (OM).
 
 
 # Project : deces_hebdo_chaleur_mtl
