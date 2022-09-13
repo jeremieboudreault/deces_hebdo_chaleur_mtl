@@ -44,7 +44,7 @@ year_start <- 1980
 year_end <- 2021
 
 # Variables.
-vars <- c("tmax")
+vars <- c("tmax", "tmin")
 
 # File name.
 filename <- sprintf("daymet_v4_daily_na_%s_%s.nc", vars[1L], year_end)
