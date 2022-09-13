@@ -172,16 +172,37 @@ for (year in year_start:year_end) {
 }
 
 
-# Take the mean value over each layer.
-values <- apply(terra::as.array(daymet_mask), 3L, mean, na.rm = TRUE)
+# Create a nice table with all values ------------------------------------------
 
-# Create a data.table of the resulting time series.
-daymet_values <- data.table(
-    YEAR   = year,
-    DOY    = 1:365,
-    VAR    = var,
-    VALUES = values,
-    SOURCE = "Daymet"
+
+# Load all Daymet values.
+daymet_values <- do.call(
+    what = rbind,
+    args = lapply(file.path(list.files("cache", full.names = TRUE)), qs::qread)
+)
+
+# Create <DATE>, <MONTH>, <DAY> features.
+daymet_values[, DATE  := as.Date(DOY - 1L, origin = paste0(YEAR, "-01-01"))]
+daymet_values[, MONTH := as.integer(format(DATE, "%m"))]
+daymet_values[, DAY   := as.integer(format(DATE, "%d"))]
+
+# Create a wider data.table (dcast).
+daymet_dt <- data.table::dcast.data.table(
+    data      = daymet_values,
+    formula   = DATE + YEAR + MONTH + DAY + DOY ~ VAR,
+    value.var = "VALUES"
+)
+
+# Map names of DayMet to standard names.
+data.table::setnames(daymet_dt,
+    old = c("tmax"),
+    new = c("T_MAX")
+)
+
+# Export.
+data.table::fwrite(
+    x    = daymet_dt,
+    file = "data/daymet/daymet_data_mtl_spat_agg.csv"
 )
 
 
