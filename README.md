@@ -55,7 +55,7 @@ Les jeux de données horaires ont été préférés à ceux quotidiens car ils c
 
 Finalement, les données météorologiques ont été ramenées au pas de temps hebdomadaire en prenant la moyenne des valeurs observées durant la semaine. Ces données ont été fusionnées avec les données de décès totaux hebdomadaire de l'ISQ pour la région de Montréal et Laval.
 
-> **Note** : J'ai aussi téléchargé les données de [DayMet](https://daymet.ornl.gov/), des données quotidiennes de réanalyse de la NASA à un résolution de 1km x 1km sur tout l'Amérique du Nord pour plusieurs variables d'intérêt : température minimale et maximale, précipitations, rayonnement solaire, vapeur d'eau, etc. Cependant, ces données n'ont pas été utilisé dans le présent projet car elles étaient similaires aux données d'ECCC.
+> **Note** : J'ai aussi téléchargé les données de [DayMet](https://daymet.ornl.gov/), des données quotidiennes de réanalyse de la NASA à une résolution de 1km x 1km sur toute l'Amérique du Nord. Les variables disponibles sont la température minimale et maximale, les précipitations, le rayonnement solaire, la vapeur d'eau, etc. Cependant, ces données n'ont pas été utilisées dans le présent projet, car il n'y avait pas différence ou de supériorité de ces données par rapport à celle d'ECCC.
 
 Résultats
 --------------------------------------------------------------------------------
