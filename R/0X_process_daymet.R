@@ -214,35 +214,57 @@ data.table::fwrite(
 
 
 # Load daily weather variables for Montreal/Laval of ECCC.
-eccc <- qs::qread(file.path("data/eccc/mtl_data_daily_agg.qs"))
+eccc <- qs::qread("data/eccc/mtl_data_daily_agg.qs")
 
-# Extract daily Tmax values for <YEAR> == year.
-eccc_sub <- eccc[YEAR == year, .(YEAR = year, VAR = var, DOY = 1:365, VALUES = T_MAX, SOURCE = "ECCC")]
-#eccc_sub <- eccc[YEAR == year, .(YEAR = year, VAR = var, DOY = 1:365, VALUES = PRCIP_SUM, SOURCE = "ECCC")]
+# Filter out some rows and columns.
+eccc <- eccc[
+    i = YEAR >= year_start & YEAR <= year_end,
+    j = .(YEAR,DATE, DOY = as.integer(format(DATE, "%j")),
+          T_MAX, T_MIN)
+][DOY != 366L, ]
 
-# Merge both tables.
-values_both <- rbind(daymet_values, eccc_sub)
+# Melt data.
+eccc_values <- data.table::melt.data.table(
+    data     = eccc,
+    id.vars  = c("YEAR", "DATE", "DOY"),
+    var      = "VAR",
+    value    = "VALUES"
+)
 
-# Coefficient of determination.
-R2 <- cor(
-    x = values_both[SOURCE=="Daymet", VALUES],
-    y = values_both[SOURCE=="ECCC", VALUES]
-)^2
+# Merge both table.
+values_both <- rbind(
+    daymet_values[, .(DOY, YEAR, VAR, VALUES, SOURCE = "Daymet")],
+    eccc_values[,   .(DOY, YEAR, VAR, VALUES, SOURCE = "ECCC")]
+)
 
-# Plot both data.
-ggplot(data = values_both) +
-geom_line(aes(x = DOY, y = VALUES, col = SOURCE), alpha = 0.7) +
-scale_color_manual(values = c(jtheme::colors$blue, jtheme::colors$red)) +
-ggtitle("Daymet and ECCC values", paste0(toupper(var), " - ", year)) +
-labs(x = "Day of year", y = "Values") +
-annotate("text", x = Inf, y = -Inf, label = paste0("R2 =", round(R2, 3L)), hjust = 1.1, vjust = -1) +
-#annotate("text", x = Inf, y = Inf, label = paste0("R2 =", round(R2, 3L)), hjust = 1.1, vjust = 1.6) +  # For precip
-jtheme::jtheme(facet = TRUE, legend.title = FALSE)
-#jtheme::jtheme(facet = TRUE, legend.title = FALSE, expand.y = FALSE) # For precip
+# Plot all data.
+for (var in c("T_MAX", "T_MIN")) {
 
+    # Compute R2.
+    R2 <- round(cor(
+        x   = values_both[SOURCE == "Daymet" & VAR == var, VALUES],
+        y   = values_both[SOURCE == "ECCC" & VAR == var, VALUES],
+        use = "complete.obs"
+    )^2, 3)
 
-# Exports to cache -------------------------------------------------------------
+    # Plot.
+    print(
+    ggplot(data = values_both[VAR == var, ]) +
+    geom_line(aes(x = DOY, y = VALUES, col = SOURCE), lwd = 0.2, alpha = 0.8) +
+    scale_color_manual(values = c(jtheme::colors$blue, jtheme::colors$red)) +
+    ggtitle(
+        label  = "Daymet and ECCC values",
+        subtitle = paste0(tolower(var), " (R²=", round(R2, 3L), ")")
+    ) +
+    labs(x = "Day of year", y = "Values") +
+    facet_wrap(facets = "YEAR") +
+    jtheme::jtheme(facet = TRUE, legend.title = FALSE)
+    )
 
+    # Save plot to plots/daymet/.
+    jtheme::save_ggplot(
+        file = paste0("plots/daymet/3_validations_", tolower(var), ".jpg"),
+        size = "sqrbig"
+    )
 
-# To be completed...
-
+}
