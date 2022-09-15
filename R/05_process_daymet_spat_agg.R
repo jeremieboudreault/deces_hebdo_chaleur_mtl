@@ -44,7 +44,7 @@ year_start <- 1980
 year_end <- 2021
 
 # Variables.
-vars <- c("tmax", "tmin")
+vars <- c("tmax", "tmin", "srad", "prcp")
 
 # File name.
 filename <- sprintf("daymet_v4_daily_na_%s_%s.nc", vars[1L], year_end)
@@ -190,6 +190,8 @@ daymet_values[, DAY   := as.integer(format(DATE, "%d"))]
 # Map <VAR> to standard names.
 daymet_values[VAR == "tmax", VAR := "T_MAX"]
 daymet_values[VAR == "tmin", VAR := "T_MIN"]
+daymet_values[VAR == "srad", VAR := "SRAD"]
+daymet_values[VAR == "prcp", VAR := "PRCIP_SUM"]
 
 # Round values prior to export.
 daymet_values[, VALUES := round(VALUES, 3L)]
@@ -223,7 +225,7 @@ eccc <- qs::qread("data/eccc/mtl_data_daily_agg.qs")
 eccc_sub <- eccc[
     i = YEAR >= year_start & YEAR <= year_end,
     j = .(YEAR, DATE, DOY = as.integer(format(DATE, "%j")),
-          T_MAX, T_MIN, T_MEAN)
+          T_MAX, T_MIN, T_MEAN, PRCIP_SUM, SRAD = VISB_MEAN)
 ][DOY != 366L, ]
 
 # Melt ECCC data.
@@ -252,7 +254,7 @@ values <- rbind(
 )
 
 # Plot all data.
-for (var in c("T_MAX", "T_MIN", "T_MEAN")) {
+for (var in c("T_MAX", "T_MIN", "T_MEAN", "PRCIP_SUM", "SRAD")) {
 
     # Create a new table with values of ECCC and Daymet.
     values_sub <- data.table::data.table(
@@ -267,8 +269,7 @@ for (var in c("T_MAX", "T_MIN", "T_MEAN")) {
     varl <- tolower(var)
 
     # First plot --- all data.
-    print(
-    ggplot(data = values[VAR == var, ]) +
+    p1 <- ggplot(data = values[VAR == var, ]) +
     geom_line(aes(x = DOY, y = VALUES, col = SOURCE), lwd = 0.2, alpha = 0.8) +
     scale_color_manual(values = c(jtheme::colors$blue, jtheme::colors$red)) +
     ggtitle(
@@ -277,8 +278,10 @@ for (var in c("T_MAX", "T_MIN", "T_MEAN")) {
     ) +
     labs(x = "Day of year", y = paste0("Values (", varl, ")")) +
     facet_wrap(facets = "YEAR") +
-    jtheme::jtheme(facet = TRUE, legend.title = FALSE)
-    )
+    jtheme::jtheme(facet = TRUE, show_leg_title = FALSE)
+
+    # Plot.
+    print(p1)
 
     # Save plot to plots/daymet/.
     jtheme::save_ggplot(
@@ -287,8 +290,7 @@ for (var in c("T_MAX", "T_MIN", "T_MEAN")) {
     )
 
     # Second plot --- scatter plot.
-    print(
-    ggplot(data = values_sub, aes(x = ECCC, y = Daymet)) +
+    p2 <- ggplot(data = values_sub, aes(x = ECCC, y = Daymet)) +
     geom_point(alpha = 0.1) +
     ggtitle(
         label    = paste0("Scatterplot of Daymet and ECCC ", varl, " values"),
@@ -296,8 +298,10 @@ for (var in c("T_MAX", "T_MIN", "T_MEAN")) {
     ) +
     geom_abline(intercept = 0L, slope = 1L, col = jtheme::colors$red) +
     labs(x = paste0("ECCC (", varl, ")"), y = paste0("Daymet (", varl, ")")) +
-    jtheme::jtheme(facet = TRUE, legend.title = FALSE)
-    )
+    jtheme::jtheme(facet = TRUE, show_leg_title = FALSE)
+
+    # Plot.
+    print(p2)
 
     # Save plot to plots/daymet/.
     jtheme::save_ggplot(
