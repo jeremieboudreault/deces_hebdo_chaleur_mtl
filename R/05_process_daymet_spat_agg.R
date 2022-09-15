@@ -8,8 +8,7 @@
 # Author  : Jeremie Boudreault
 # Email   : Prenom.Nom@inrs.ca
 # Depends : R (v4.2.1)
-# Imports : jtheme (https://github.com/jeremieboudreault/jtheme)
-# License : CC BY-NC-ND 4.0
+v# License : CC BY-NC-ND 4.0
 
 
 # Note : User must first download DayMet NetCDF using the bash script located

@@ -8,7 +8,7 @@
 # Author  : Jeremie Boudreault
 # Email   : Prenom.Nom@inrs.ca
 # Depends : R (v4.2.1)
-# Imports : jtheme (https://github.com/jeremieboudreault/jtheme)
+# Imports : jtheme (v0.0.2) [https://github.com/jeremieboudreault/jtheme]
 # License : CC BY-NC-ND 4.0
 
 
@@ -178,7 +178,7 @@ generate_plot <- function(
             y = death_name,
             x = ifelse(plot_i %in% c(3L, 4L), temp_name, "")
         ) +
-        jtheme(legend.title = FALSE, facets = TRUE)
+        jtheme(show_leg_title = FALSE, borders = "all")
 
 }
 

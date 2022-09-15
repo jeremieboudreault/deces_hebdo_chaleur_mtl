@@ -8,7 +8,7 @@
 # Author  : Jeremie Boudreault
 # Email   : Prenom.Nom@inrs.ca
 # Depends : R (v4.2.1)
-# Imports : jtheme (https://github.com/jeremieboudreault/jtheme)
+# Imports : jtheme (v0.0.2) [https://github.com/jeremieboudreault/jtheme]
 # License : CC BY-NC-ND 4.0
 
 
@@ -133,7 +133,7 @@ ggplot(eccc_mtl_daily[DATE > "2010-01-01", ], mapping = aes(x = DATE)) +
     scale_color_manual(values = c(colors$red, colors$blue, "black")) +
     ggtitle("Températures enregistrées à Montréal et Laval") +
     labs(x = "Date", y = "Température (ºC)") +
-    jtheme(legend.title = FALSE)
+    jtheme(show_leg_title = FALSE)
 
 # Save plot.
 jtheme::save_ggplot("plots/fig_3_1_montreal_temp.jpg", size = "rect")
@@ -147,7 +147,7 @@ ggplot(eccc_mtl_daily[DATE > "2010-01-01", ], mapping = aes(x = DATE)) +
     scale_color_manual(values = c(colors$red, colors$blue, "black")) +
     ggtitle("Valeurs d'Humidex enregistrées à Montréal et Laval") +
     labs(x = "Date", y = "Humidex") +
-    jtheme(legend.title = FALSE)
+    jtheme(show_leg_title = FALSE)
 
 # Save plot.
 jtheme::save_ggplot("plots/fig_3_2_montreal_hmdx.jpg", size = "rect")

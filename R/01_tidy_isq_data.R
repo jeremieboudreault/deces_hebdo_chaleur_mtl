@@ -8,7 +8,7 @@
 # Author  : Jeremie Boudreault
 # Email   : Prenom.Nom@inrs.ca
 # Depends : R (v4.2.1)
-# Imports : jtheme (https://github.com/jeremieboudreault/jtheme)
+# Imports : jtheme (v0.0.2) [https://github.com/jeremieboudreault/jtheme]
 # License : CC BY-NC-ND 4.0
 
 
@@ -108,7 +108,7 @@ ggtitle("Décès hebdomadaires au Québec par groupe d'âge") +
 labs(y = "Décès hebdomadaires", x = "Date") +
 scale_x_date(expand = expansion(mult = c(0.01, 0.02))) +
 guides(colour = guide_legend(nrow = 1)) +
-jtheme(legend.title = FALSE)
+jtheme(show_leg_title = FALSE)
 
 # Save plots.
 jtheme::save_ggplot("plots/fig_1_1_deces_par_age.jpg", size = "rect")
@@ -183,7 +183,7 @@ ggtitle("Décès hebdomadaires au Québec par région") +
 labs(y = "Décès hebdomadaires", x = "Date") +
 scale_x_date(expand = expansion(mult = c(0.01, 0.02))) +
 guides(colour = guide_legend(nrow = 1)) +
-jtheme(legend.title = FALSE)
+jtheme(show_leg_title = FALSE)
 
 # Save plots.
 jtheme::save_ggplot("plots/fig_1_2_deces_par_region.jpg", size = "rect")
@@ -263,7 +263,7 @@ ggtitle("Décès hebdomadaires au Québec par sexe") +
 labs(y = "Décès hebdomadaires", x = "Date") +
 scale_x_date(expand = expansion(mult = c(0.01, 0.02))) +
 guides(colour = guide_legend(nrow = 1)) +
-jtheme(legend.title = FALSE)
+jtheme(show_leg_title = FALSE)
 
 # Save plots.
 jtheme::save_ggplot("plots/fig_1_3_deces_par_sexe.jpg", size = "rect")

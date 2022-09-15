@@ -8,7 +8,7 @@
 # Author  : Jeremie Boudreault
 # Email   : Prenom.Nom@inrs.ca
 # Depends : R (v4.2.1)
-# Imports : jtheme (https://github.com/jeremieboudreault/jtheme)
+# Imports : jtheme (v0.0.2) [https://github.com/jeremieboudreault/jtheme]
 # License : CC BY-NC-ND 4.0
 
 
@@ -57,7 +57,7 @@ p1 <- ggplot(data, aes(y = N_DEATH, x = MID_DATE)) +
     geom_line(aes(x = MID_DATE, y = TREND_MONTH), col = colors$blue) +
     ggtitle("a) Tendances mensuelles") +
     labs(y = "Décès hebdomadaires", x = "") +
-    jtheme(facets = TRUE)
+    jtheme(borders = "all")
 p1
 
 
@@ -113,7 +113,7 @@ p2 <- ggplot(data, aes(y = N_DEATH, x = MID_DATE)) +
     ggtitle("b) Spline continue") +
     labs(y = "", x = "") +
     scale_color_manual(values = c(colors$blue, colors$red)) +
-    jtheme(facets = TRUE)
+    jtheme(borders = "all")
 p2
 
 
@@ -137,7 +137,7 @@ p3 <- ggplot(data, aes(y = N_DEATH, x = MID_DATE)) +
     geom_line(aes(x = MID_DATE, y = TREND_USPLINE), col = colors$blue) +
     ggtitle("c) Spline unique") +
     labs(y = "Décès hebdomadaires", x = "Date") +
-    jtheme(facets = TRUE)
+    jtheme(borders = "all")
 p3
 
 
@@ -164,7 +164,7 @@ p4 <- ggplot(data, aes(y = N_DEATH, x = MID_DATE)) +
     geom_line(aes(x = MID_DATE, y = TREND_POLY), col = colors$blue) +
     ggtitle("d) Fonction polynomiale unique") +
     labs(y = "", x = "Date") +
-    jtheme(facets = TRUE)
+    jtheme(borders = "all")
 p4
 
 
@@ -200,7 +200,7 @@ ggplot(data, aes(x = MID_DATE)) +
     geom_hline(yintercept = 0, lty = 3, alpha = 0.5) +
     ggtitle("Surmortalité avec les 4 méthodes testées") +
     labs(y = "Surmortalité hebdomadaire", x = "Date") +
-    jtheme(legend.title = FALSE)
+    jtheme(show_leg_title = FALSE)
 
 # Save plot of over-mortality.
 jtheme::save_ggplot("plots/fig_4_surmortalite_resultats.jpg")

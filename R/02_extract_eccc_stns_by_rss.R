@@ -136,7 +136,7 @@ geom_sf(
 ggtitle("Stations météorologiques de ECCC à Montréal et Laval") +
 labs(x = NULL, y = NULL) +
 scale_color_manual(values = ul(colors[c("red", "blue")])) +
-jtheme(show.grid = TRUE, facets = TRUE)
+jtheme(show_grid = TRUE, borders = "all")
 
 # Export plots.
 jtheme::save_ggplot("plots/fig_2_carte_stations.jpg", size = "rect")
