@@ -8,7 +8,7 @@
 # Author  : Jeremie Boudreault
 # Email   : Prenom.Nom@inrs.ca
 # Depends : R (v4.2.1)
-v# License : CC BY-NC-ND 4.0
+# License : CC BY-NC-ND 4.0
 
 
 # Note : User must first download DayMet NetCDF using the bash script located
@@ -31,6 +31,9 @@ library(terra)
 # Should the plot be displayed of not (slowing down the running of the code).
 show_plot <- FALSE
 
+# Extend cache size of GDAL to 5gb to handle DayMet NetCDF.
+terra::gdalCache(5000L)
+
 
 # Settings for DayMET ----------------------------------------------------------
 
@@ -39,11 +42,11 @@ show_plot <- FALSE
 daymet_path <- "/Volumes/ExtDataPhD/daymet/"
 
 # Period.
-year_start <- 1980
-year_end <- 2021
+year_start <- 1980L
+year_end <- 2021L
 
 # Variables.
-vars <- c("tmax", "tmin", "srad", "prcp")
+vars <- c("tmax", "tmin", "srad", "prcp", "swe", "dayl", "vp")
 
 # File name.
 filename <- sprintf("daymet_v4_daily_na_%s_%s.nc", vars[1L], year_end)
@@ -62,7 +65,7 @@ mask <- sf::read_sf("data/rss/Territoires_RSS_2022.shp")
 mask <- mask[mask$RSS_code %in% c("06", "13"), ]
 
 # Project mask to CRS of Daymet.
-mask_proj <- sf::st_transform(mask, terra::crs(daymet))
+mask_proj <- sf::st_transform(mask, terra::crs(daymet)) |> sf::st_union()
 
 # Extract limits from the mask
 limits <- sf::st_bbox(mask_proj)
@@ -120,36 +123,12 @@ for (year in year_start:year_end) {
     # Load a the corresponding DayMet NetCDF.
     daymet <- terra::rast(file.path(daymet_path, filename))
 
-    # Crop daymet.
-    daymet_crop <- terra::crop(daymet, extent)
-
-    # Plot a random of the cropped result.
-    if (show_plot) {
-        terra::plot(
-            x    = daymet_crop[[day]],
-            main = sprintf("Cropped %s from Daymet, day %s of year %s.",
-                           var, day, year),
-            col  = pal
-        )
-        plot(mask_proj[, 1L], add = TRUE, col = rgb(1, 1, 1, 0.2), lwd = 1.5)
-    }
-
-    # Mask daymet.
-    daymet_mask <- terra::mask(daymet_crop, terra::vect(mask_proj), touches = FALSE)
-
-    # Plot a random day of the masked results.
-    if (show_plot) {
-        terra::plot(
-            x    = daymet_mask[[day]],
-            main = sprintf("Masked %s from Daymet, day %s of year %s.",
-                           var, day, year),
-            col  = pal
-        )
-        plot(mask_proj[, 1L], add = TRUE, col = NA, lwd = 1.5)
-    }
-
-    # Take the spatial mean value over each layer.
-    values <- apply(terra::as.array(daymet_mask), 3L, mean, na.rm = TRUE)
+    # Extract values and take the spatial mean value over each layer.
+    values_exext <- exactextractr::exact_extract(
+        x       = daymet,
+        y       = mask_proj,
+        fun     = "mean"
+    )
 
     # Create a data.table of the resulting time series.
     daymet_values <- data.table(
